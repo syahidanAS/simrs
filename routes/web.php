@@ -40,10 +40,10 @@ Route::middleware(['auth', 'check.session'])->group(function () {
         Route::prefix('/diagnose')->group(function () {
             Route::get('icd_x', [DiagnoseIcdxController::class, 'index'])->name('master.diagnose.icd_x');
         });
-        Route::get('/polyclinics', [PolyclinicController::class, 'index'])->name('master.polyclinics');
+        Route::get('/polyclinics', [PolyclinicController::class, 'index'])->name('master.polyclinics')->middleware('permission:Show Master Poliklinik');
         Route::get('/polyclinics/create', [PolyclinicController::class, 'create'])->name('master.polyclinics.create');
         Route::post('/polyclinics/store', [PolyclinicController::class, 'store'])->name('master.polyclinics.store');
-        Route::get('/polyclinics/edit/{id}', [PolyclinicController::class, 'edit'])->name('master.polyclinics.edit');
+        Route::get('/polyclinics/edit/{id}', [PolyclinicController::class, 'edit'])->name('master.polyclinics.edit')->middleware('permission:Edit Master Poliklinik');
         Route::post('/polyclinics/update', [PolyclinicController::class, 'update'])->name('master.polyclinics.update');
         Route::get('/polyclinics/destroy/{id}', [PolyclinicController::class, 'destroy'])->name('master.polyclinics.destroy');
 
@@ -69,7 +69,7 @@ Route::middleware(['auth', 'check.session'])->group(function () {
         Route::get('/units/create', [UnitController::class, 'create'])->name('master.units.create');
         Route::post('/units/store', [UnitController::class, 'store'])->name('master.units.store');
         Route::post('/units/update', [UnitController::class, 'update'])->name('master.units.update');
-        Route::get('/units/edit/{id}', [UnitController::class, 'edit'])->name('master.units.edit');
+        Route::get('/units/edit/{id}', [UnitController::class, 'edit'])->name('master.units.edit')->middleware('permission:Edit Master Satuan Produk');
         Route::get('/units/destroy/{id}', [UnitController::class, 'destroy'])->name('master.units.destroy');
 
         Route::get('/types', [ProductTypeController::class, 'index'])->name('master.types');
