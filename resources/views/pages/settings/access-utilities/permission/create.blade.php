@@ -1,41 +1,56 @@
 @extends('layouts.app', ['title' => 'Tambah Permission Baru'])
 @section('content')
-<div class="app-content my-4">
-    <form id="formTambahPermission" action="{{ route('setting.access-utilities.permissions.store') }}" method="POST">
-        @csrf
-        <div class="container">
-            <div class="d-flex justify-content-between text-center">
-                <h5>Tambah Permission Baru</h5>
-                <a class="btn btn-secondary btn-sm" href="{{ route('setting.access-utilities.permissions') }}"><i
-                        class="bi bi-chevron-left"></i>Kembali</a>
-            </div>
-            <div class="card-body pt-4 row">
-                <div class="col-sm-6">
-                    <div class="mb-3 form-group">
-                        <label for="name">Nama Permission<span class="text-danger">*</span></label>
-                        <input class="form-control" type="text" name="name" id="name"
-                            placeholder="Masukan nama permission">
-                    </div>
-                    <div class="mb-3 form-group">
-                        <label for="menu_name">Kategori Menu<span class="text-danger">*</span></label>
-                        <input class="form-control" type="text" name="menu_name" id="menu_name">
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="mb-3 form-group">
-                        <label for="guard_name">Guard Name</label>
-                        <input class="form-control" type="text" name="guard_name" id="guard_name" value="web" readonly>
-                    </div>
-                    <div class="mb-3 form-group">
-                        <label for="action_name">Nama Tindakan<span class="text-danger">*</span></label>
-                        <input class="form-control" type="text" name="action_name" id="action_name">
-                    </div>
-                </div>
-            </div>
-            <hr>
-            <button type="submit" class="btn btn-primary ">Simpan</button>
+
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <ol class="breadcrumb">
+                @php
+                $currentRouteName = Route::current()->uri();
+                @endphp
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ $currentRouteName }}</a>
+                </li>
+            </ol>
         </div>
-    </form>
+        <form id="formTambahPermission" action="{{ route('setting.access-utilities.permissions.store') }}"
+            method="POST">
+            @csrf
+            <div class="container card p-5">
+                <div class="d-flex justify-content-between text-center">
+                    <h5>Formulir Permission</h5>
+                    <a class="btn btn-secondary btn-sm" href="{{ route('setting.access-utilities.permissions') }}"><i
+                            class="bi bi-chevron-left"></i>Kembali</a>
+                </div>
+                <div class="card-body pt-4 row">
+                    <div class="col-sm-6">
+                        <div class="mb-3 form-group">
+                            <label for="name">Nama Permission<span class="text-danger">*</span></label>
+                            <input class="form-control" type="text" name="name" id="name"
+                                placeholder="Masukan nama permission">
+                        </div>
+                        <div class="mb-3 form-group">
+                            <label for="menu_name">Kategori Menu<span class="text-danger">*</span></label>
+                            <input class="form-control" type="text" name="menu_name" id="menu_name" placeholder="ex. Doctor">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="mb-3 form-group">
+                            <label for="guard_name">Guard Name</label>
+                            <input class="form-control" type="text" name="guard_name" id="guard_name" value="web"
+                                readonly>
+                        </div>
+                        <div class="mb-3 form-group">
+                            <label for="action_name">Nama Tindakan<span class="text-danger">*</span></label>
+                            <input class="form-control" type="text" name="action_name" id="action_name" placeholder="ex. Show">
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 @endsection
 

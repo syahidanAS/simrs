@@ -1,38 +1,47 @@
 @extends('layouts.app', ['title' => 'Manajemen Role'])
 @section('content')
-<div class="app-content my-4">
-    <div class="container">
-        <div class="row">
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <ol class="breadcrumb">
+                @php
+                $currentRouteName = Route::current()->uri();
+                @endphp
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ $currentRouteName }}</a>
+                </li>
+            </ol>
         </div>
-        <div class="card table-responsive">
-            <div class="card-header">
-                <h5 class="card-title col-sm-10">Manajemen Role</h5>
-                <a class="btn btn-primary btn-sm col-sm-2" href="{{ route('setting.access-utilities.roles.create') }}">+
-                    Tambah Data</a>
-            </div>
-            <div class="card-body">
-                <div class="d-flex justify-content-between mb-3">
+            <div class="card table-responsive">
+                <div class="card-header">
+                    <h5 class="card-title col-sm-10">Manajemen Role</h5>
+                    <a class="btn btn-primary btn-sm col-sm-2"
+                        href="{{ route('setting.access-utilities.roles.create') }}">+
+                        Tambah Data</a>
                 </div>
-                <table class="table table-striped table-bordered" id="datatable">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Nama</th>
-                            <th>Guard Name</th>
-                            <th>Deskripsi</th>
-                            <th>Tindakan</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between mb-3">
+                    </div>
+                    <table class="table table-striped table-bordered" id="datatable">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama</th>
+                                <th>Guard Name</th>
+                                <th>Deskripsi</th>
+                                <th>Tindakan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer">
+                    <!-- Optional footer content -->
+                </div>
             </div>
-            <div class="card-footer">
-                <!-- Optional footer content -->
-            </div>
-        </div>
     </div>
 </div>
+
 @endsection
 @section('scriptjs')
 <script type="text/javascript">

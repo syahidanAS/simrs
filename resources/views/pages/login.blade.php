@@ -9,8 +9,12 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{ asset('/plugins/css/adminlte.css') }}">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="stylesheet" href="{{ asset('/assets/css/main.css') }}">
+    <link href="{{ asset('/plugins/vendor/jquery-nice-select/css/nice-select.css') }}" rel="stylesheet">
+    <link href="{{ asset('/plugins/vendor/lightgallery/css/lightgallery.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('/plugins/css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('/plugins/vendor/datatables/css/jquery.dataTables.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('/plugins/vendor/select2/css/select2.min.css') }}">
+    <link href="{{ asset('/plugins/vendor/jquery-nice-select/css/nice-select.css') }}" rel="stylesheet">
     <style>
         body {
             background-color: #f0f0f0;
@@ -50,13 +54,19 @@
                 </div>
             </div>
         </div>
-        <footer class="footer py-3 text-secondary">
-            <div class="container text-center">
-                <p class="mb-0" style="font-size: 12px;">&copy; 2024 ARZ Technology. All rights reserved.</p>
-            </div>
-        </footer>
     </div>
-    <script src="{{ asset('/plugins/js/adminlte.js') }}"></script>
+    <script src="{{ asset('/plugins/vendor/global/global.min.js') }}"></script>
+    <script src="{{ asset('/plugins/vendor/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
+    <script src="{{ asset('/plugins/vendor/jquery-nice-select/js/jquery.nice-select.min.js') }}"></script>
+    <script src="{{ asset('/plugins/js/custom.min.js') }}"></script>
+    <script src="{{ asset('/plugins/js/dlabnav-init.js') }}"></script>
+    <script src="{{ asset('/plugins/vendor/datatables/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('/plugins/js/plugins-init/datatables.init.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset('/plugins/vendor/jquery-nice-select/js/jquery.nice-select.min.js') }}"></script>
+    <script src="{{ asset('/plugins/vendor/select2/js/select2.full.min.js') }}"></script>
+    <script src="{{ asset('/plugins/js/plugins-init/select2-init.js') }}"></script>
     <script>
         $(document).ready(function () {
             $('#loginForm').on('submit', function (e) {

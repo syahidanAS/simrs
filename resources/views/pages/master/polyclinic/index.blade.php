@@ -1,36 +1,44 @@
 @extends('layouts.app', ['title' => 'Master Poliklinik'])
 
 @section('content')
-<div class="app-content my-4">
-    <div class="container">
-        <div class="row"></div>
-        <div class="card table-responsive">
-            <div class="card-header">
-                <h5 class="card-title col-sm-10">Master Poliklinik</h5>
-                <a type="button" class="btn btn-primary btn-sm col-sm-2"
-                    href="{{ route('master.polyclinics.create') }}">+
-                    Tambah Data</a>
-            </div>
-            <div class="card-body">
-                <div class="d-flex justify-content-between mb-3"></div>
-                <table class="table table-striped table-bordered" id="datatable">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Kode Poli</th>
-                            <th>Nama Poli</th>
-                            <th>Jam Buka</th>
-                            <th>Jam Tutup</th>
-                            <th>Tindakan</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
-            <div class="card-footer">
-                <!-- Optional footer content -->
-            </div>
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <ol class="breadcrumb">
+                @php
+                $currentRouteName = Route::current()->uri();
+                @endphp
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ $currentRouteName }}</a>
+                </li>
+            </ol>
         </div>
+            <div class="card table-responsive">
+                <div class="card-header">
+                    <h5 class="card-title col-sm-10">Master Poliklinik</h5>
+                    <a type="button" class="btn btn-primary btn-sm col-sm-2"
+                        href="{{ route('master.polyclinics.create') }}">+
+                        Tambah Data</a>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between mb-3"></div>
+                    <table class="table table-striped table-bordered" id="datatable">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Kode Poli</th>
+                                <th>Nama Poli</th>
+                                <th>Jam Buka</th>
+                                <th>Jam Tutup</th>
+                                <th>Tindakan</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <div class="card-footer">
+                    <!-- Optional footer content -->
+                </div>
+            </div>
     </div>
 </div>
 @endsection

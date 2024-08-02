@@ -1,18 +1,18 @@
 <!-- Modal Detail-->
-<div class="modal fade" id="detailProductModal" tabindex="-1" aria-labelledby="detailProductModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+<div class="modal fade" id="detailProductModal">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="detailProductModalLabel">Informasi Produk</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title">Informasi Produk</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal">
+                </button>
             </div>
-            <div class="modal-body table-responsive">
+            <div class="modal-body">
                 <table class="table table-striped" id="table-detail">
                     <tr>
                         <td>Nama Produk</td>
                         <td>:</td>
-                        <th id="productName"></th>
+                        <th class="text-primary" style="font-size: 16px;" id="productName"></th>
                     </tr>
                     <tr>
                         <td>Industri</td>
@@ -110,9 +110,10 @@
                     </tr>
 
                 </table>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Tutup</button>
             </div>
         </div>
     </div>
+</div>

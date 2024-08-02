@@ -1,9 +1,18 @@
 @extends('layouts.app', ['title' => 'Manajemen Permission'])
 @section('content')
-<div class="app-content my-4">
-    <div class="container">
-        <div class="row">
+
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <ol class="breadcrumb">
+                @php
+                $currentRouteName = Route::current()->uri();
+                @endphp
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ $currentRouteName }}</a>
+                </li>
+            </ol>
         </div>
+
         <div class="card table-responsive">
             <div class="card-header">
                 <h5 class="card-title col-sm-10">Manajemen Permission</h5>
@@ -28,9 +37,6 @@
                     <tbody>
                     </tbody>
                 </table>
-            </div>
-            <div class="card-footer">
-                <!-- Optional footer content -->
             </div>
         </div>
     </div>

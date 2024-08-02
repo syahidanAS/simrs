@@ -1,45 +1,59 @@
 @extends('layouts.app', ['title' => 'Perbaharui Permission'])
 @section('content')
-<div class="app-content my-4">
-    <form id="formUpdatePermission" action="{{ route('setting.access-utilities.permissions.update') }}" method="POST">
-        @csrf
-        <div class="container">
-            <div class="d-flex justify-content-between text-center">
-                <h5>Perbaharui Permission Baru</h5>
-                <a class="btn btn-secondary btn-sm" href="{{ route('setting.access-utilities.permissions') }}"><i
-                        class="bi bi-chevron-left"></i>Kembali</a>
-            </div>
-            <div class="card-body pt-4 row">
-                <div class="col-sm-6">
-                    <input class="form-control" type="text" name="id" id="id"
-                        value="{{ \App\Helpers\Main::hashIdsEncode($permission->id) }}" hidden>
-                    <div class="mb-3 form-group">
-                        <label for="name">Nama Permission<span class="text-danger">*</span></label>
-                        <input class="form-control" type="text" name="name" id="name" value="{{ $permission->name }}"
-                            placeholder="Masukan nama permission">
-                    </div>
-                    <div class="mb-3 form-group">
-                        <label for="menu_name">Kategori Menu<span class="text-danger">*</span></label>
-                        <input class="form-control" type="text" name="menu_name" id="menu_name"
-                            value="{{ $permission->menu_name }}">
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="mb-3 form-group">
-                        <label for="guard_name">Guard Name</label>
-                        <input class="form-control" type="text" name="guard_name" id="guard_name" value="web" readonly>
-                    </div>
-                    <div class="mb-3 form-group">
-                        <label for="action_name">Nama Tindakan<span class="text-danger">*</span></label>
-                        <input class="form-control" type="text" name="action_name" id="action_name"
-                            value="{{ $permission->action_name }}">
-                    </div>
-                </div>
-            </div>
-            <hr>
-            <button type="submit" class="btn btn-primary ">Simpan</button>
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <ol class="breadcrumb">
+                @php
+                $currentRouteName = Route::current()->uri();
+                @endphp
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ $currentRouteName }}</a>
+                </li>
+            </ol>
         </div>
-    </form>
+        <form class="card p-4" id="formUpdatePermission"
+            action="{{ route('setting.access-utilities.permissions.update') }}" method="POST">
+            @csrf
+            <div class="container">
+                <div class="d-flex justify-content-between text-center">
+                    <h5>Formulir Permission</h5>
+                    <a class="btn btn-secondary btn-sm" href="{{ route('setting.access-utilities.permissions') }}"><i
+                            class="bi bi-chevron-left"></i>Kembali</a>
+                </div>
+                <div class="card-body pt-4 row">
+                    <div class="col-sm-6">
+                        <input class="form-control" type="text" name="id" id="id"
+                            value="{{ \App\Helpers\Main::hashIdsEncode($permission->id) }}" hidden>
+                        <div class="mb-3 form-group">
+                            <label for="name">Nama Permission<span class="text-danger">*</span></label>
+                            <input class="form-control" type="text" name="name" id="name"
+                                value="{{ $permission->name }}" placeholder="Masukan nama permission">
+                        </div>
+                        <div class="mb-3 form-group">
+                            <label for="menu_name">Kategori Menu<span class="text-danger">*</span></label>
+                            <input class="form-control" type="text" name="menu_name" id="menu_name"
+                                value="{{ $permission->menu_name }}">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="mb-3 form-group">
+                            <label for="guard_name">Guard Name</label>
+                            <input class="form-control" type="text" name="guard_name" id="guard_name" value="web"
+                                readonly>
+                        </div>
+                        <div class="mb-3 form-group">
+                            <label for="action_name">Nama Tindakan<span class="text-danger">*</span></label>
+                            <input class="form-control" type="text" name="action_name" id="action_name"
+                                value="{{ $permission->action_name }}">
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 @endsection
 

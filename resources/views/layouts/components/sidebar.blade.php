@@ -9,7 +9,7 @@
             @endphp
             @foreach($menus as $parent)
             <li><a class="{{ (count($parent->children) > 0) ? 'has-arrow' : '' }}" href="{{ $parent->url }}">
-                    <i class="fas fa-clone"></i>
+                    {!!$parent->icon!!}
                     <span class="nav-text">{{ $parent->name }}</span>
                 </a>
                 @if($parent->children)

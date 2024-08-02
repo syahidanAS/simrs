@@ -28,15 +28,15 @@ return new class extends Migration
             $table->bigInteger('group_id')->nullable();
             $table->bigInteger('current_stock')->nullable();
             $table->bigInteger('minimum_stock')->nullable();
-            $table->decimal('basic_price', 15, 2);
-            $table->decimal('purchase_price', 15, 2);
-            $table->decimal('outpatient_price', 15, 2);
-            $table->decimal('inpatient_price_class_1', 15, 2);
-            $table->decimal('inpatient_price_class_2', 15, 2);
-            $table->decimal('inpatient_price_class_3', 15, 2);
-            $table->decimal('inpatient_price_bpjs', 15, 2);
-            $table->decimal('inpatient_price_vip', 15, 2);
-            $table->decimal('inpatient_price_vvip', 15, 2);
+            $table->decimal('basic_price', 15, 2)->nullable();
+            $table->decimal('purchase_price', 15, 2)->nullable();
+            $table->decimal('outpatient_price', 15, 2)->nullable();
+            $table->decimal('inpatient_price_class_1', 15, 2)->nullable();
+            $table->decimal('inpatient_price_class_2', 15, 2)->nullable();
+            $table->decimal('inpatient_price_class_3', 15, 2)->nullable();
+            $table->decimal('inpatient_price_bpjs', 15, 2)->nullable();
+            $table->decimal('inpatient_price_vip', 15, 2)->nullable();
+            $table->decimal('inpatient_price_vvip', 15, 2)->nullable();
             $table->timestamps();
         });
     }

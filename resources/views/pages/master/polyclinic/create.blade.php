@@ -1,9 +1,18 @@
 @extends('layouts.app', ['title' => 'Tambah Poliklinik'])
 @section('content')
-<div class="app-content my-4">
-    <form id="formTambahPoli" action="{{ route('master.polyclinics.store') }}" method="POST">
-        @csrf
-        <div class="container">
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <ol class="breadcrumb">
+                @php
+                $currentRouteName = Route::current()->uri();
+                @endphp
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ $currentRouteName }}</a>
+                </li>
+            </ol>
+        </div>
+        <form class="card p-4" id="formTambahPoli" action="{{ route('master.polyclinics.store') }}" method="POST">
+            @csrf
             <div class="d-flex justify-content-between text-center">
                 <h5>Tambah Poliklinik</h5>
                 <a class="btn btn-secondary btn-sm" href="{{ route('master.polyclinics') }}"><i
@@ -36,10 +45,11 @@
                     </div>
                 </div>
             </div>
-            <hr>
-            <button id="btnSubmit" type="submit" class="btn btn-primary">Simpan</button>
-        </div>
-    </form>
+            <div class="card-footer">
+                <button id="btnSubmit" type="submit" class="btn btn-primary">Simpan</button>
+            </div>
+        </form>
+    </div>
 </div>
 @endsection
 @section('scriptjs')

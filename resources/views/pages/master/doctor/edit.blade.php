@@ -1,76 +1,90 @@
 @extends('layouts.app', ['title' => 'Ubah Informasi Dokter'])
 @section('content')
-<div class="app-content my-4">
-    <form id="formTambahDokter" action="{{ route('master.doctors.update') }}" method="POST">
-        @csrf
-        <div class="container">
-            <div class="d-flex justify-content-between text-center">
-                <h5>Ubah Informasi Dokter</h5>
-                <a class="btn btn-secondary btn-sm" href="{{ route('master.doctors') }}"><i
-                        class="bi bi-chevron-left"></i>Kembali</a>
-            </div>
-            <div class="card-body pt-4 row">
-                <div class="col-sm-6">
-                    <input class="form-control" type="text" name="id" id="id" value="{{ $doctor->id }}" hidden>
-                    <div class="mb-3 form-group">
-                        <label for="id_number">NIK<span class="text-danger">*</span></label>
-                        <input class="form-control" type="number" name="id_number" id="id_number"
-                            placeholder="Masukan NIK Dokter" maxlength="16" pattern="\d{16}"
-                            title="NIK harus terdiri dari 16 digit"
-                            oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 16)"
-                            value="{{ $doctor->id_number }}">
-                    </div>
-                    <div class="mb-3 form-group">
-                        <label for="name">Nama Dokter<span class="text-danger">*</span></label>
-                        <input class="form-control" type="text" name="name" id="name" placeholder="Masukan Nama Dokter"
-                            value="{{ $doctor->name }}">
-                    </div>
-                    <div class="mb-2">
-                        <label for="specialist_id" class="form-label" required>Spesialis<span
-                                class="text-danger">*</span></label>
-                        <select class="form-select specialist_id" id="specialist_id" name="specialist_id"
-                            aria-label="specialistIdLabel">
-                            <option value="">Pilih Spesialis</option>
-                        </select>
-                    </div>
-                    <div class="mb-2">
-                        <label for="gender" class="form-label" required>Jenis Kelamin<span
-                                class="text-danger">*</span></label>
-                        <select class="form-select select2" id="gender" name="gender" aria-label="specialistIdLabel">
-                            <option value="">Pilih Jenis Kelamin</option>
-                            <option value="male" {{ ($doctor->gender == "male") ? "selected" : "" }}>Laki-laki</option>
-                            <option value="female" {{ ($doctor->gender == "female") ? "selected" : "" }}>Perempuan
-                            </option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="mb-3 form-group">
-                        <label for="front_degree">Gelar Depan</label>
-                        <input class="form-control" type="text" name="front_degree" id="front_degree"
-                            placeholder="ex. dr" value="{{ $doctor->front_degree }}">
-                    </div>
-                    <div class="mb-3 form-group">
-                        <label for="back_degree">Gelar Belakang</label>
-                        <input class="form-control" type="text" name="back_degree" id="back_degree"
-                            placeholder="ex. Sp. A" value="{{ $doctor->back_degree }}">
-                    </div>
-                    <div class="mb-3 form-group">
-                        <label for="phone_number">No. Telepon<span class="text-danger">*</span></label>
-                        <input class="form-control" type="text" name="phone_number" id="phone_number"
-                            placeholder="ex. 0822xxx" value="{{ $doctor->phone_number }}">
-                    </div>
-                    <div class="mb-3 form-group">
-                        <label for="address">Alamat</label>
-                        <textarea class="form-control" type="text" name="address"
-                            id="address">{{ $doctor->address }}</textarea>
-                    </div>
-                </div>
-            </div>
-            <hr>
-            <button id="btnSubmit" type="submit" class="btn btn-primary">Simpan Perubahan</button>
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <ol class="breadcrumb">
+                @php
+                $currentRouteName = Route::current()->uri();
+                @endphp
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ $currentRouteName }}</a>
+                </li>
+            </ol>
         </div>
-    </form>
+        <form class="card p-4" id="formTambahDokter" action="{{ route('master.doctors.update') }}" method="POST">
+            @csrf
+            <div class="container">
+                <div class="d-flex justify-content-between text-center">
+                    <h5>Ubah Informasi Dokter</h5>
+                    <a class="btn btn-secondary btn-sm" href="{{ route('master.doctors') }}"><i
+                            class="bi bi-chevron-left"></i>Kembali</a>
+                </div>
+                <div class="card-body pt-4 row">
+                    <div class="col-sm-6">
+                        <input class="form-control" type="text" name="id" id="id" value="{{ $doctor->id }}" hidden>
+                        <div class="mb-3 form-group">
+                            <label for="id_number">NIK<span class="text-danger">*</span></label>
+                            <input class="form-control" type="number" name="id_number" id="id_number"
+                                placeholder="Masukan NIK Dokter" maxlength="16" pattern="\d{16}"
+                                title="NIK harus terdiri dari 16 digit"
+                                oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 16)"
+                                value="{{ $doctor->id_number }}">
+                        </div>
+                        <div class="mb-3 form-group">
+                            <label for="name">Nama Dokter<span class="text-danger">*</span></label>
+                            <input class="form-control" type="text" name="name" id="name"
+                                placeholder="Masukan Nama Dokter" value="{{ $doctor->name }}">
+                        </div>
+                        <div class="my-4">
+                            <label for="specialist_id" class="form-label" required>Spesialis<span
+                                    class="text-danger">*</span></label>
+                            <select class="form-select specialist_id" id="specialist_id" name="specialist_id"
+                                aria-label="specialistIdLabel">
+                                <option value="">Pilih Spesialis</option>
+                            </select>
+                        </div>
+                        <div class="my-4">
+                            <label for="gender" class="form-label" required>Jenis Kelamin<span
+                                    class="text-danger">*</span></label>
+                            <select class="form-select select2" id="gender" name="gender"
+                                aria-label="specialistIdLabel">
+                                <option value="">Pilih Jenis Kelamin</option>
+                                <option value="male" {{ ($doctor->gender == "male") ? "selected" : "" }}>Laki-laki
+                                </option>
+                                <option value="female" {{ ($doctor->gender == "female") ? "selected" : "" }}>Perempuan
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="mb-3 form-group">
+                            <label for="front_degree">Gelar Depan</label>
+                            <input class="form-control" type="text" name="front_degree" id="front_degree"
+                                placeholder="ex. dr" value="{{ $doctor->front_degree }}">
+                        </div>
+                        <div class="mb-3 form-group">
+                            <label for="back_degree">Gelar Belakang</label>
+                            <input class="form-control" type="text" name="back_degree" id="back_degree"
+                                placeholder="ex. Sp. A" value="{{ $doctor->back_degree }}">
+                        </div>
+                        <div class="mb-3 form-group">
+                            <label for="phone_number">No. Telepon<span class="text-danger">*</span></label>
+                            <input class="form-control" type="text" name="phone_number" id="phone_number"
+                                placeholder="ex. 0822xxx" value="{{ $doctor->phone_number }}">
+                        </div>
+                        <div class="mb-3 form-group">
+                            <label for="address">Alamat</label>
+                            <textarea class="form-control" type="text" name="address"
+                                id="address">{{ $doctor->address }}</textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button id="btnSubmit" type="submit" class="btn btn-primary btn-sm">Simpan Perubahan</button>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 @endsection
 @section('scriptjs')

@@ -1,8 +1,16 @@
 @extends('layouts.app', ['title' => 'Master Dokter'])
 @section('content')
-<div class="app-content my-4">
-    <div class="container">
-        <div class="row"></div>
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <ol class="breadcrumb">
+                @php
+                $currentRouteName = Route::current()->uri();
+                @endphp
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ $currentRouteName }}</a>
+                </li>
+            </ol>
+        </div>
         <div class="card table-responsive">
             <div class="card-header">
                 <h5 class="card-title col-sm-10">Master Dokter</h5>

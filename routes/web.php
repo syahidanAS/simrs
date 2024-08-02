@@ -9,6 +9,7 @@ use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PolyclinicController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -60,6 +61,14 @@ Route::middleware(['auth', 'check.session'])->group(function () {
         Route::post('/cost/product-prices', [MedicalProductController::class, 'store'])->name('master.cost.product-prices.store');
         Route::get('/cost/product-prices/detail/{id}', [MedicalProductController::class, 'detail'])->name('master.cost.product-prices.detail');
         Route::get('/cost/products/create', [MedicalProductController::class, 'create'])->name('master.cost.products.create');
+
+        Route::get('/units', [UnitController::class, 'index'])->name('master.units');
+        Route::get('/units/create', [UnitController::class, 'create'])->name('master.units.create');
+        Route::post('/units/store', [UnitController::class, 'store'])->name('master.units.store');
+        Route::post('/units/update', [UnitController::class, 'update'])->name('master.units.update');
+        Route::get('/units/edit/{id}', [UnitController::class, 'edit'])->name('master.units.edit');
+        Route::get('/units/destroy/{id}', [UnitController::class, 'destroy'])->name('master.units.destroy');
+
     });
     Route::prefix('/setting')->group(function () {
         Route::get('/menus', [MenuController::class, 'index'])->name('setting.menus');

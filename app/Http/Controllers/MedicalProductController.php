@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Helpers\Main;
 use App\Http\Requests\AddProductRequest;
 use App\Models\Product;
+use App\Models\ProductCategory;
+use App\Models\ProductGroup;
 use App\Models\ProductIndustry;
 use App\Models\ProductType;
 use App\Models\ProductUnit;
@@ -32,42 +34,25 @@ class MedicalProductController extends Controller
                 ->addColumn('kfa_code', function ($row) {
                     return $row->kfa_code;
                 })
+                ->addColumn('product_name', function ($row) {
+                    $name = "<a href='javascript:void(0)' id='btnDetailProduct' data-id='" . Main::hashIdsEncode($row->id) . "'>$row->name</a>";
+                    return $name;
+                })
                 ->addColumn('content', function ($row) {
                     return $row->content;
-                })
-                ->addColumn('large_unit', function ($row) {
-                    return $row->largeUnit->name;
-                })
-                ->addColumn('fill', function ($row) {
-                    return $row->fill;
-                })
-                ->addColumn('small_unit', function ($row) {
-                    return $row->smallUnit->name;
-                })
-                ->addColumn('capacity', function ($row) {
-                    return $row->capacity;
                 })
                 ->addColumn('basic_price', function ($row) {
                     return Main::formatRupiah($row->basic_price);
                 })
-                ->addColumn('current_stock', function ($row) {
-                    return $row->current_stock;
-                })
-                ->addColumn('minimum_stock', function ($row) {
-                    return $row->minimum_stock;
-                })
-                ->addColumn('expired_date', function ($row) {
-                    return $row->expired_date;
-                })
                 ->addColumn('action', function ($row) {
                     $btn = '<div class="d-flex gap-2 text-center">';
-                    $btn .= "<a href='javascript:void(0)' class='btn btn-primary text-light btn-sm' type='button' id='btnDetailProduct' data-id='" . Main::hashIdsEncode($row->id) . "'>Detail</a>";
-                    $btn .= "<a href='" . route('setting.access-utilities.permissions.edit', ['id' => Main::hashIdsEncode($row->id)]) . "' class='btn btn-warning text-light btn-sm' type='button' id='editMenu'>Ubah</a>";;
+                    $btn .= "<a href='javascript:void(0)' class='btn btn-primary btn-sm' type='button' id='btnDetailProduct' data-id='" . Main::hashIdsEncode($row->id) . "'>Detail</a>";
+                    $btn .= "<a href='" . route('setting.access-utilities.permissions.edit', ['id' => Main::hashIdsEncode($row->id)]) . "' class='btn btn-warning btn-sm' type='button' id='editMenu'>Ubah</a>";;
                     $btn .= "<a href='javascript:void(0)' class='btn btn-danger btn-sm delete-item' data-id='" . Main::hashIdsEncode($row->id) . "' data-name='" . $row->name . "'>Hapus</a>";
                     $btn .= '</div>';
                     return $btn;
                 })
-                ->rawColumns(['action'])
+                ->rawColumns(['action', 'product_name'])
                 ->make(true);
         }
         return view('pages.master.costs.medical_product.index');
@@ -90,7 +75,7 @@ class MedicalProductController extends Controller
         }
     }
 
-    public function create(AddProductRequest $request)
+    public function create()
     {
         $product = Product::count() + 1;
         $countProduct = 'PR' . str_pad($product, 3, '0', STR_PAD_LEFT);
@@ -119,25 +104,47 @@ class MedicalProductController extends Controller
     public function categories(Request $request)
     {
         $query = $request->get('q');
-        $categories = ProductType::where('name', 'like', "%$query%")->get();
+        $categories = ProductCategory::where('name', 'like', "%$query%")->get();
         return $categories;
     }
 
     public function groups(Request $request)
     {
         $query = $request->get('q');
-        $groups = ProductType::where('name', 'like', "%$query%")->get();
+        $groups = ProductGroup::where('name', 'like', "%$query%")->get();
         return $groups;
     }
 
-    public function store(Request $request)
+    public function store(AddProductRequest $request)
     {
         try {
+            $query = new Product();
+            $query->code = $request->code;
+            $query->kfa_code = $request->kfa_code;
+            $query->name = $request->name;
+            $query->industry_id = $request->industry_id;
+            $query->large_unit_id = $request->large_unit_id;
+            $query->fill = $request->fill;
+            $query->small_unit_id = $request->small_unit_id;
+            $query->capacity = $request->capacity;
+            $query->minimum_stock = $request->minimum_stock;
+            $query->current_stock = $request->current_stock;
+            $query->expired_date = $request->expired_date;
+            $query->basic_price = $request->basic_price;
+            $query->purchase_price = $request->purchase_price;
+            $query->outpatient_price = $request->outpatient_price;
+            $query->inpatient_price_class_1 = $request->inpatient_price_class_1;
+            $query->inpatient_price_class_2 = $request->inpatient_price_class_2;
+            $query->inpatient_price_class_3 = $request->inpatient_price_class_3;
+            $query->inpatient_price_bpjs = $request->inpatient_price_bpjs;
+            $query->inpatient_price_vip = $request->inpatient_price_vip;
+            $query->inpatient_price_vvip = $request->inpatient_price_vvip;
+            $query->save();
+
             return response()->json([
                 'status' => 'success',
-                'message' => 'Berhasil mendapatkan data',
-                'data' => $request->all(),
-            ], 200);
+                'message' => 'Berhasil menyimpan data',
+            ], 201);
         } catch (\Throwable $err) {
             return response()->json([
                 'status' => 'error',

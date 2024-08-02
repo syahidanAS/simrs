@@ -22,6 +22,17 @@
     <link href="{{ asset('/plugins/vendor/datatables/css/jquery.dataTables.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('/plugins/vendor/select2/css/select2.min.css') }}">
     <link href="{{ asset('/plugins/vendor/jquery-nice-select/css/nice-select.css') }}" rel="stylesheet">
+    <style>
+        .form-control {
+            border: 0.5px solid #4d4c4c;
+            height: 30px;
+        }
+
+        table td {
+            font-size: 14px !important;
+            font-weight: normal !important;
+        }
+    </style>
 </head>
 
 <body>
@@ -42,6 +53,49 @@
     <script src="{{ asset('/plugins/vendor/jquery-nice-select/js/jquery.nice-select.min.js') }}"></script>
     <script src="{{ asset('/plugins/vendor/select2/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('/plugins/js/plugins-init/select2-init.js') }}"></script>
+    <script>
+
+        $(document).ready(function () {
+            $('#btnLogout').on('click', function () {
+                Swal.fire({
+                    title: "Peringatan!",
+                    text: "Apakah anda yakin ingin keluar aplikasi?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Ya",
+                    cancelButtonText: "Batalkan"
+
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+                        $.ajax({
+                            type: 'POST',
+                            url: '{{ route("logout") }}',
+                            processData: false,
+                            contentType: false,
+                            success: function (response) {
+                                location.reload()
+                            },
+                            error: function (xhr, status, error) {
+                                Swal.fire({
+                                    icon: "error",
+                                    text: xhr.responseJSON.message,
+                                    showCloseButton: true,
+                                    confirmButtonText: 'Coba Lagi',
+                                });
+                            }
+                        })
+                    }
+                });
+            });
+        });
+    </script>
     @yield('scriptjs')
 </body>
 

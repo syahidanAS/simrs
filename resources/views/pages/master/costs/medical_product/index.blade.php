@@ -1,45 +1,42 @@
 @extends('layouts.app', ['title' => 'Master Obat dan Alat Kesehatan'])
 @section('content')
-<style>
-    #table-detail td:first-child {
-        width: 30%;
-        /* Atur sesuai kebutuhan */
-    }
-
-    #table-detail td:nth-child(2) {
-        width: 2%;
-        /* Atur sesuai kebutuhan */
-    }
-
-    #table-detail td:last-child {
-        width: 70%;
-        /* Atur sesuai kebutuhan */
-    }
-</style>
-<div class="app-content my-4">
-    <div class="container">
-        <div class="row mx-2 my-2 gap-2">
-            <a type="button" class="btn btn-secondary btn-sm col-sm-2" href="#">
-                Master Kategori</a>
-            <a type="button" class="btn btn-secondary btn-sm col-sm-2" href="#">
-                Master Industri</a>
-            <a type="button" class="btn btn-secondary btn-sm col-sm-2" href="#">
-                Master Kelompok</a>
-            <a type="button" class="btn btn-secondary btn-sm col-sm-2" href="#">
-                Master Tipe</a>
-            <a type="button" class="btn btn-secondary btn-sm col-sm-2" href="#">
-                Master Satuan</a>
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <ol class="breadcrumb">
+                @php
+                $currentRouteName = Route::current()->uri();
+                @endphp
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ $currentRouteName }}</a>
+                </li>
+            </ol>
         </div>
-        <div class="card table-responsive">
-            <div class="card-header">
-                <h5 class="card-title col-sm-10">Master Obat dan Alat Kesehatan</h5>
-                <a type="button" class="btn btn-primary btn-sm col-sm-2"
-                    href="{{ route('master.cost.products.create') }}">+
-                    Tambah Data</a>
+        <div class="card">
+            <div class=" card-header">
+                <h5 class="card-title col-sm-6">Master Dokter</h5>
+                <div class="row">
+                    <div class="basic-dropdown col-sm">
+                        <div class="dropdown">
+                            <button type="button" class="btn btn-secondary dropdown-toggle btn-sm"
+                                data-bs-toggle="dropdown">
+                                Master Data Pendukung
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{{ route('master.units') }}">Satuan Produk</a>
+                                <a class="dropdown-item" href="#">Tipe Produk</a>
+                                <a class="dropdown-item" href="#">Kategori Produk</a>
+                                <a class="dropdown-item" href="#">Golongan Produk</a>
+                            </div>
+                        </div>
+                    </div>
+                    <a type="button" class="btn btn-primary btn-sm col-sm"
+                        href="{{ route('master.cost.products.create') }}">+
+                        Tambah Data</a>
+                </div>
             </div>
             <div class="card-body table-responsive">
                 <div class="d-flex justify-content-between mb-3"></div>
-                <table class="table table-striped table-bordered" id="datatable">
+                <table class="table table-striped table-bordered w-100" id="datatable">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -47,32 +44,19 @@
                             <th>Kode KFA</th>
                             <th>Nama Produk</th>
                             <th>Kandungan</th>
-                            <th>Satuan Besar</th>
-                            <th>Isi</th>
-                            <th>Satuan Kecil</th>
-                            <th>Kapasitas</th>
                             <th>Harga Dasar</th>
-                            <th>Stok Saat Ini</th>
-                            <th>Stok Minimal</th>
-                            <th>expired_date</th>
                             <th class="text-center">Tindakan</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
                 </table>
             </div>
-            <div class="card-footer">
-                <!-- Optional footer content -->
-            </div>
         </div>
     </div>
+    @include('pages.master.costs.medical_product.detail')
 </div>
 
-@include('pages.master.costs.medical_product.detail')
-
-
 @endsection
-
 @section('scriptjs')
 <script>
     $(document).ready(function () {
@@ -85,30 +69,13 @@
                     { data: 'DT_RowIndex', name: 'DT_RowIndex' },
                     { data: 'code', name: 'code' },
                     { data: 'kfa_code', name: 'kfa_code' },
-                    { data: 'name', name: 'name' },
+                    { data: 'product_name', name: 'product_name' },
                     { data: 'content', name: 'content' },
-                    { data: 'large_unit', name: 'large_unit' },
-                    { data: 'fill', name: 'fill' },
-                    { data: 'small_unit', name: 'small_unit' },
-                    { data: 'capacity', name: 'capacity' },
                     { data: 'basic_price', name: 'basic_price' },
-                    { data: 'current_stock', name: 'current_stock' },
-                    { data: 'minimum_stock', name: 'minimum_stock' },
-                    { data: 'expired_date', name: 'expired_date' },
-                    { data: 'action', name: 'action', orderable: false, searchable: false },
+                    { data: 'action', name: 'action', orderable: true, searchable: true },
                 ],
-                "responsive": true, "lengthChange": true, "autoWidth": true,
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-            $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
             });
+
         });
 
 
