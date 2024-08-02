@@ -1,153 +1,164 @@
 @extends('layouts.app', ['title' => 'Manajemen Pengguna'])
 
 @section('content')
-<div class="app-content my-4">
-    <div class="container">
-        <div class="row"></div>
-        <div class="card table-responsive">
-            <div class="card-header">
-                <h5 class="card-title col-sm-10">Manajemen Pengguna</h5>
-                <button type="button" class="btn btn-primary btn-sm col-sm-2" data-bs-toggle="modal"
-                    data-bs-target="#modalTambahData">+
-                    Tambah Data</button>
-            </div>
-            <div class="card-body">
-                <div class="d-flex justify-content-between mb-3"></div>
-                <table class="table table-striped table-bordered" id="datatable">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Nama</th>
-                            <th>Email</th>
-                            <th>Status</th>
-                            <th>Tindakan</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
-            <div class="card-footer">
-                <!-- Optional footer content -->
+
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <ol class="breadcrumb">
+                @php
+                $currentRouteName = Route::current()->uri();
+                @endphp
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ $currentRouteName }}</a>
+                </li>
+            </ol>
+        </div>
+
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Manajemen menu</h4>
+                    <button class="btn btn-primary btn-sm col-sm-2" data-bs-toggle="modal"
+                        data-bs-target="#modalTambahData">+ Tambah Data</button>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between mb-3"></div>
+                    <table class="table table-striped table-bordered" id="datatable">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama</th>
+                                <th>Email</th>
+                                <th>Status</th>
+                                <th>Tindakan</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <div class="card-footer">
+                    <!-- Optional footer content -->
+                </div>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Tambah User -->
-    <div class="modal fade" id="modalTambahData" data-bs-backdrop="static" data-bs-keyboard="false"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Tambah User</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form method="POST" id="userForm" action="{{ route('setting.users.store') }}">
-                        @csrf
-                        <div class="row px-2">
-                            <label for="name" class="form-label" required>Nama Pengguna<span
-                                    class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="name" name="name"
-                                placeholder="Masukan nama pengguna...">
-                        </div>
 
-                        <div class="mb-2">
-                            <label for="email" class="form-label" required>Email<span
-                                    class="text-danger">*</span></label>
-                            <input type="email" class="form-control" id="email" name="email"
-                                placeholder="johndoe@email.com">
-                        </div>
 
-                        <div class="mb-2">
-                            <label for="password" class="form-label" required>Password<span
-                                    class="text-danger">*</span></label>
-                            <input type="password" class="form-control" id="password" name="password"
-                                placeholder="Masukan password">
-                        </div>
-
-                        <div class="mb-2">
-                            <label for="retypePassword" class="form-label" required>Ketik Ulang Password <span
-                                    class="text-danger">*</span></label>
-                            <input type="password" class="form-control" id="retypePassword" name="retypePassword"
-                                placeholder="Ketik ulang password">
-                        </div>
-
-                        <div class="mb-2">
-                            <label for="role" class="form-label" required>Role<span class="text-danger">*</span></label>
-                            <select class="form-select role" id="role" name="role" aria-label="role">
-                                <option value="">Pilih Role</option>
-                            </select>
-                        </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
-                    <button id="saveBtn" type="submit" class="btn btn-primary">Simpan</button>
-                </div>
-                </form>
+<!-- Tambah User -->
+<div class="modal fade" id="modalTambahData" data-bs-backdrop="static" data-bs-keyboard="false"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Tambah User</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <div class="modal-body">
+                <form method="POST" id="userForm" action="{{ route('setting.users.store') }}">
+                    @csrf
+                    <div class="row px-2">
+                        <label for="name" class="form-label" required>Nama Pengguna<span
+                                class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="name" name="name"
+                            placeholder="Masukan nama pengguna...">
+                    </div>
+
+                    <div class="mb-2">
+                        <label for="email" class="form-label" required>Email<span class="text-danger">*</span></label>
+                        <input type="email" class="form-control" id="email" name="email"
+                            placeholder="johndoe@email.com">
+                    </div>
+
+                    <div class="mb-2">
+                        <label for="password" class="form-label" required>Password<span
+                                class="text-danger">*</span></label>
+                        <input type="password" class="form-control" id="password" name="password"
+                            placeholder="Masukan password">
+                    </div>
+
+                    <div class="mb-2">
+                        <label for="retypePassword" class="form-label" required>Ketik Ulang Password <span
+                                class="text-danger">*</span></label>
+                        <input type="password" class="form-control" id="retypePassword" name="retypePassword"
+                            placeholder="Ketik ulang password">
+                    </div>
+
+                    <div class="mb-2">
+                        <label for="role" class="form-label" required>Role<span class="text-danger">*</span></label>
+                        <select class="form-select role" id="role" name="role" aria-label="role">
+                            <option value="">Pilih Role</option>
+                        </select>
+                    </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
+                <button id="saveBtn" type="submit" class="btn btn-primary">Simpan</button>
+            </div>
+            </form>
         </div>
     </div>
+</div>
 
-    <!-- Edit User -->
-    <div class="modal fade" id="editUserModal" data-bs-backdrop="static" aria-labelledby="editUserModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Ubah User</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form method="POST" id="editUserForm" action="{{ route('setting.users.update') }}">
-                        @csrf
-                        <input type="text" class="form-control" id="idEdit" name="idEdit" hidden>
-                        <div class="row px-2">
-                            <label for="nameEdit" class="form-label" required>Nama Pengguna<span
-                                    class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="nameEdit" name="nameEdit"
-                                placeholder="Masukan nama pengguna...">
-                        </div>
-
-                        <div class="mb-2">
-                            <label for="emailEdit" class="form-label" required>Email<span
-                                    class="text-danger">*</span></label>
-                            <input type="email" class="form-control" id="emailEdit" name="emailEdit"
-                                placeholder="johndoe@email.com">
-                        </div>
-
-                        <div class="mb-2">
-                            <label for="passwordEdit" class="form-label" required>Password<span
-                                    class="text-danger">*</span></label>
-                            <input type="password" class="form-control" id="passwordEdit" name="passwordEdit"
-                                placeholder="Masukan password">
-                        </div>
-
-                        <div class="mb-2">
-                            <label for="retypePasswordEdit" class="form-label" required>Ketik Ulang Password <span
-                                    class="text-danger">*</span></label>
-                            <input type="password" class="form-control" id="retypePasswordEdit"
-                                name="retypePasswordEdit" placeholder="Ketik ulang password">
-                        </div>
-
-                        <div class="mb-2">
-                            <label for="roleEdit" class="form-label" required>Role<span
-                                    class="text-danger">*</span></label>
-                            <select class="form-select roleEdit" id="roleEdit" name="roleEdit"
-                                aria-label="roleEditLabel">
-                                <option value="">Pilih Role</option>
-                            </select>
-                        </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
-                    <button id="editBtn" type="submit" class="btn btn-primary">Simpan Perubahan</button>
-                </div>
-                </form>
+<!-- Edit User -->
+<div class="modal fade" id="editUserModal" data-bs-backdrop="static" aria-labelledby="editUserModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Ubah User</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <div class="modal-body">
+                <form method="POST" id="editUserForm" action="{{ route('setting.users.update') }}">
+                    @csrf
+                    <input type="text" class="form-control" id="idEdit" name="idEdit" hidden>
+                    <div class="row px-2">
+                        <label for="nameEdit" class="form-label" required>Nama Pengguna<span
+                                class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="nameEdit" name="nameEdit"
+                            placeholder="Masukan nama pengguna...">
+                    </div>
+
+                    <div class="mb-2">
+                        <label for="emailEdit" class="form-label" required>Email<span
+                                class="text-danger">*</span></label>
+                        <input type="email" class="form-control" id="emailEdit" name="emailEdit"
+                            placeholder="johndoe@email.com">
+                    </div>
+
+                    <div class="mb-2">
+                        <label for="passwordEdit" class="form-label" required>Password<span
+                                class="text-danger">*</span></label>
+                        <input type="password" class="form-control" id="passwordEdit" name="passwordEdit"
+                            placeholder="Masukan password">
+                    </div>
+
+                    <div class="mb-2">
+                        <label for="retypePasswordEdit" class="form-label" required>Ketik Ulang Password <span
+                                class="text-danger">*</span></label>
+                        <input type="password" class="form-control" id="retypePasswordEdit" name="retypePasswordEdit"
+                            placeholder="Ketik ulang password">
+                    </div>
+
+                    <div class="mb-2">
+                        <label for="roleEdit" class="form-label" required>Role<span class="text-danger">*</span></label>
+                        <select class="form-select roleEdit" id="roleEdit" name="roleEdit" aria-label="roleEditLabel">
+                            <option value="">Pilih Role</option>
+                        </select>
+                    </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
+                <button id="editBtn" type="submit" class="btn btn-primary">Simpan Perubahan</button>
+            </div>
+            </form>
         </div>
     </div>
+</div>
 
 </div>
 @endsection
@@ -188,7 +199,7 @@
                 processResults: function (data) {
                     return {
                         results: data.map(item => ({
-                            id: item.id,
+                            id: item.name,
                             text: item.name
                         }))
                     };
@@ -383,9 +394,7 @@
                                 showCloseButton: true,
                                 confirmButtonText: 'Oke',
                             })
-                            setTimeout(function () {
-                                location.reload();
-                            }, 1000);
+                            table.ajax.reload();
                         },
                         error: function (xhr, status, error) {
                             Swal.fire({

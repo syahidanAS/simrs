@@ -41,7 +41,7 @@ class UserController extends Controller
                 })
                 ->addColumn('action', function ($row) {
                     $btn = '<div class="d-flex gap-2">';
-                    $btn .= "<a href='javascript:void(0)' class='btn btn-warning text-light btn-sm' type='button' id='btnEditUser' data-id='" . Main::hashIdsEncode($row->id) . "'>Ubah</a>";
+                    $btn .= "<a href='javascript:void(0)' class='btn btn-warning btn-sm' type='button' id='btnEditUser' data-id='" . Main::hashIdsEncode($row->id) . "'>Ubah</a>";
                     $btn .= "<a href='javascript:void(0)' class='btn btn-danger btn-sm delete-item' data-id='" . Main::hashIdsEncode($row->id) . "' data-name='" . $row->name . "'>Hapus</a>";
                     $btn .= '</div>';
                     return $btn;

@@ -24,12 +24,12 @@
                         <table id="datatable" class="display">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Position</th>
-                                    <th>Office</th>
-                                    <th>Age</th>
-                                    <th>Start date</th>
-                                    <th>Salary</th>
+                                    <th>No</th>
+                                    <th>Nama Menu</th>
+                                    <th>URL</th>
+                                    <th>Kelompok</th>
+                                    <th>Sub Menu</th>
+                                    <th>Tindakan</th>
                                 </tr>
                         </table>
                     </div>
@@ -58,7 +58,7 @@
                             required>
                     </div>
 
-                    <div class="">
+                    <div class="my-4">
                         <label for="url" class="form-label" required>Tipe Menu<span class="text-danger">*</span></label>
                         <select class="form-select type" id="type" name="type" aria-label="Default select example"
                             runat="server">
