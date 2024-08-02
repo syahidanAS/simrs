@@ -4,6 +4,7 @@ use App\Http\Controllers\DiagnoseIcdxController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MedicalProductController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PolyclinicController;
@@ -49,6 +50,16 @@ Route::middleware(['auth', 'check.session'])->group(function () {
         Route::get('/doctors/specialities-list', [DoctorController::class, 'specialitiesList'])->name('master.doctors.specialities-list');
         Route::post('/doctors/update', [DoctorController::class, 'update'])->name('master.doctors.update');
         Route::get('/doctors/destroy/{id}', [DoctorController::class, 'destroy'])->name('master.doctors.destroy');
+
+        Route::get('/cost/product-prices', [MedicalProductController::class, 'index'])->name('master.cost.product-prices');
+        Route::get('/cost/product-prices/industries', [MedicalProductController::class, 'industries'])->name('master.cost.product-prices.industries');
+        Route::get('/cost/product-prices/units', [MedicalProductController::class, 'units'])->name('master.cost.product-prices.units');
+        Route::get('/cost/product-prices/types', [MedicalProductController::class, 'types'])->name('master.cost.product-prices.types');
+        Route::get('/cost/product-prices/categories', [MedicalProductController::class, 'categories'])->name('master.cost.product-prices.categories');
+        Route::get('/cost/product-prices/groups', [MedicalProductController::class, 'groups'])->name('master.cost.product-prices.groups');
+        Route::post('/cost/product-prices', [MedicalProductController::class, 'store'])->name('master.cost.product-prices.store');
+        Route::get('/cost/product-prices/detail/{id}', [MedicalProductController::class, 'detail'])->name('master.cost.product-prices.detail');
+        Route::get('/cost/products/create', [MedicalProductController::class, 'create'])->name('master.cost.products.create');
     });
     Route::prefix('/setting')->group(function () {
         Route::get('/menus', [MenuController::class, 'index'])->name('setting.menus');

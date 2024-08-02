@@ -1,140 +1,141 @@
 @extends('layouts.app', ['title' => 'Manajemen Menu'])
 
 @section('content')
-<div class="app-content my-4">
-    <div class="container">
-        <div class="row">
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <ol class="breadcrumb">
+                @php
+                $currentRouteName = Route::current()->uri();
+                @endphp
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ $currentRouteName }}</a>
+                </li>
+            </ol>
         </div>
-        <div class="card table-responsive">
-            <div class="card-header">
-                <h5 class="card-title col-sm-10">Manajemen Menu</h5>
-                <button class="btn btn-primary btn-sm col-sm-2" data-bs-toggle="modal"
-                    data-bs-target="#staticBackdrop">+ Tambah Data</button>
-            </div>
-            <div class="card-body">
-                <div class="d-flex justify-content-between mb-3">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Manajemen menu</h4>
+                    <button class="btn btn-primary btn-sm col-sm-2" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop">+ Tambah Data</button>
                 </div>
-                <table class="table table-striped table-bordered" id="datatable">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Nama</th>
-                            <th>URL</th>
-                            <th>Tipe</th>
-                            <th>Sub Menu</th>
-                            <th>Tindakan</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-            </div>
-            <div class="card-footer">
-                <!-- Optional footer content -->
-            </div>
-        </div>
-    </div>
-    <!-- Tambah Menu -->
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Tambah Menu</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="datatable" class="display">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Position</th>
+                                    <th>Office</th>
+                                    <th>Age</th>
+                                    <th>Start date</th>
+                                    <th>Salary</th>
+                                </tr>
+                        </table>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    <form method="POST" id="menuForm" action="{{ route('setting.menus.store') }}">
-                        @csrf
-                        <div class="row px-2">
-                            <label for="name" class="form-label" required>Nama Menu<span
-                                    class="text-danger">*</span></label>
-                            <br>
-                            <input type="text" class="form-control" id="name" name="name"
-                                placeholder="Masukan nama menu..." required>
-                        </div>
-
-                        <div class="">
-                            <label for="url" class="form-label" required>Tipe Menu<span
-                                    class="text-danger">*</span></label>
-                            <select class="form-select type" id="type" name="type" aria-label="Default select example"
-                                runat="server">
-                                <option selected disabled>Pilih Tipe Menu</option>
-                                <option value="parent">Menu Utama</option>
-                                <option value="child-level-1">Sub Menu Level 1</option>
-                                <option value="child-level-2">Sub Menu Level 2</option>
-                            </select>
-                        </div>
-
-                        <div class="">
-                            <label for="icon" class="form-label" required>Icon</label>
-                            <br>
-                            <input type="text" class="form-control" id="icon" name="icon"
-                                placeholder="Mausukan icon SVG.." required>
-                        </div>
-
-                        <div class="" id="urlbox">
-                            <label for="url" class="form-label" required>Url</label>
-                            <input type="text" class="form-control" id="url" name="url" placeholder="/nama-menu">
-                        </div>
-
-                        <div class="" id="parent_box" style="display: none;">
-                            <label for="parent_id" class="form-label" required>Menu Parent</label>
-                            <select class="form-select parents" id="parent_id" name="parent_id" aria-label="parents"
-                                runat="server">
-                            </select>
-                        </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
-                    <button id="saveBtn" type="submit" class="btn btn-primary">Simpan</button>
-                </div>
-                </form>
             </div>
         </div>
     </div>
-
-    <!-- Edit Menu -->
-    <div class="modal fade" id="editMenuModal" data-bs-backdrop="static" data-bs-keyboard="false"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Ubah Menu</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form method="POST" id="updateMenuForm" action="{{ route('setting.menus.update') }}">
-                        @csrf
-                        <input type="text" class="form-control" id="idEdit" name="idEdit" hidden>
-                        <div class="row px-2">
-                            <label for="nameEdit" class="form-label" required>Nama Menu<span
-                                    class="text-danger">*</span></label>
-                            <br>
-                            <input type="text" class="form-control" id="nameEdit" name="nameEdit"
-                                placeholder="Masukan nama menu..." required>
-                        </div>
-                        <div class="">
-                            <label for="iconEdit" class="form-label" required>Icon</label>
-                            <br>
-                            <input type="text" class="form-control" id="iconEdit" name="iconEdit"
-                                placeholder="Mausukan icon SVG.." required>
-                        </div>
-
-                        <div class="" id="urlEditBox">
-                            <label for="urlEdit" class="form-label" required>Url</label>
-                            <input type="text" class="form-control" id="urlEdit" name="urlEdit"
-                                placeholder="/nama-menu">
-                        </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
-                    <button id="editBtn" type="submit" class="btn btn-primary">Simpan</button>
-                </div>
-                </form>
+</div>
+<!-- Tambah Menu -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Tambah Menu</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <div class="modal-body">
+                <form method="POST" id="menuForm" action="{{ route('setting.menus.store') }}">
+                    @csrf
+                    <div class="row px-2">
+                        <label for="name" class="form-label" required>Nama Menu<span
+                                class="text-danger">*</span></label>
+                        <br>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Masukan nama menu..."
+                            required>
+                    </div>
+
+                    <div class="">
+                        <label for="url" class="form-label" required>Tipe Menu<span class="text-danger">*</span></label>
+                        <select class="form-select type" id="type" name="type" aria-label="Default select example"
+                            runat="server">
+                            <option selected disabled>Pilih Tipe Menu</option>
+                            <option value="parent">Menu Utama</option>
+                            <option value="child-level-1">Sub Menu Level 1</option>
+                            <option value="child-level-2">Sub Menu Level 2</option>
+                        </select>
+                    </div>
+
+                    <div class="">
+                        <label for="icon" class="form-label" required>Icon</label>
+                        <br>
+                        <input type="text" class="form-control" id="icon" name="icon" placeholder="Mausukan icon SVG.."
+                            required>
+                    </div>
+
+                    <div class="" id="urlbox">
+                        <label for="url" class="form-label" required>Url</label>
+                        <input type="text" class="form-control" id="url" name="url" placeholder="/nama-menu">
+                    </div>
+
+                    <div class="" id="parent_box" style="display: none;">
+                        <label for="parent_id" class="form-label" required>Menu Parent</label>
+                        <select class="form-select parents" id="parent_id" name="parent_id" aria-label="parents"
+                            runat="server">
+                        </select>
+                    </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
+                <button id="saveBtn" type="submit" class="btn btn-primary">Simpan</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Menu -->
+<div class="modal fade" id="editMenuModal" data-bs-backdrop="static" data-bs-keyboard="false"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Ubah Menu</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" id="updateMenuForm" action="{{ route('setting.menus.update') }}">
+                    @csrf
+                    <input type="text" class="form-control" id="idEdit" name="idEdit" hidden>
+                    <div class="row px-2">
+                        <label for="nameEdit" class="form-label" required>Nama Menu<span
+                                class="text-danger">*</span></label>
+                        <br>
+                        <input type="text" class="form-control" id="nameEdit" name="nameEdit"
+                            placeholder="Masukan nama menu..." required>
+                    </div>
+                    <div class="">
+                        <label for="iconEdit" class="form-label" required>Icon</label>
+                        <br>
+                        <input type="text" class="form-control" id="iconEdit" name="iconEdit"
+                            placeholder="Mausukan icon SVG.." required>
+                    </div>
+
+                    <div class="" id="urlEditBox">
+                        <label for="urlEdit" class="form-label" required>Url</label>
+                        <input type="text" class="form-control" id="urlEdit" name="urlEdit" placeholder="/nama-menu">
+                    </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
+                <button id="editBtn" type="submit" class="btn btn-primary">Simpan</button>
+            </div>
+            </form>
         </div>
     </div>
 </div>
@@ -186,7 +187,6 @@
             processing: true,
             serverSide: true,
             ajax: "{{ route('setting.menus') }}",
-            dom: '<"top"f>rt<"bottom"lp><"clear">',
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex' },
                 { data: 'name', name: 'name' },
@@ -195,15 +195,6 @@
                 { data: 'children', name: 'children' },
                 { data: 'action', name: 'action', orderable: false, searchable: false },
             ],
-            "responsive": true,
-            "lengthChange": true,
-            "autoWidth": false,
-            dom: "<'row'<'col-sm-9 mb-4 gap-2'l><'col-sm-3'f>>" +
-                "<'row'<'col-sm-12'tr>>" +
-                "<'row'<'col-sm-9 mt-4'i><'col-sm-3 mt-4'p>>",
-            language: {
-                searchPlaceholder: "Cari Data..."
-            }
         });
 
 

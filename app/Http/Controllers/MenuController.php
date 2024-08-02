@@ -34,27 +34,27 @@ class MenuController extends Controller
                     return $row->type;
                 })
                 ->addColumn('children', function ($row) {
-                    $appendChild = '<ul>';
+                    $appendChild = '<ol>';
                     foreach ($row->children as $child) {
                         $appendChild .= '<li class="my-2">';
-                        $appendChild .= "<a href='javascript:void(0)' onclick='editItem(`" . Main::hashIdsEncode($child->id) . "`,`" . $child->name . "`)'>" . $child->name . "</a>";
-                        $appendChild .= "<span class='mx-1'></span><button type='button' class='btn btn-xs btn-secondary' onclick='deleteItem(`" . Main::hashIdsEncode($child->id) . "`,`" . $child->name . "`)'>Hapus</button>";
-                        $appendChild .= "<ul>";
+                        $appendChild .= "<a class='text-primary' href='javascript:void(0)' onclick='editItem(`" . Main::hashIdsEncode($child->id) . "`,`" . $child->name . "`)'>" . $child->name . "</a>";
+                        $appendChild .= "<span class='mx-1'></span><button type='button' class='btn btn-xs btn-secondary' style='font-size:7px;' onclick='deleteItem(`" . Main::hashIdsEncode($child->id) . "`,`" . $child->name . "`)'>Hapus</button>";
+                        $appendChild .= "<ol>";
                         foreach ($child->children as $children) {
                             $appendChild .= "<li>";
-                            $appendChild .= "<a href='javascript:void(0)' onclick='editItem(`" . Main::hashIdsEncode($children->id) . "`,`" . $children->name . "`)'>" . $children->name . "</a>";
-                            $appendChild .= "<span class='mx-2'></span><button class='btn btn-xs btn-secondary' onclick='deleteItem(`" . Main::hashIdsEncode($children->id) . "`,`" . $children->name . "`)'>Hapus</button>";
+                            $appendChild .= "<a class='text-primary' href='javascript:void(0)' onclick='editItem(`" . Main::hashIdsEncode($children->id) . "`,`" . $children->name . "`)'>" . $children->name . "</a>";
+                            $appendChild .= "<span class='mx-2'></span><button class='btn btn-xs btn-secondary' style='font-size:7px;' onclick='deleteItem(`" . Main::hashIdsEncode($children->id) . "`,`" . $children->name . "`)'>Hapus</button>";
                             $appendChild .= "</li>";
                         }
-                        $appendChild .= "</ul>";
+                        $appendChild .= "</ol>";
                         $appendChild .= '</li>';
                     }
-                    $appendChild .= '</ul>';
+                    $appendChild .= '</ol>';
                     return $appendChild;
                 })
                 ->addColumn('action', function ($row) {
                     $btn = '<div class="d-flex gap-2">';
-                    $btn .= "<a href='javascript:void(0)' class='btn btn-warning text-light btn-sm' type='button' id='editMenu' onclick='editItem(`" . Main::hashIdsEncode($row->id) . "`,`" . $row->name . "`)'>Ubah</a>";
+                    $btn .= "<a href='javascript:void(0)' class='btn btn-warning btn-sm' type='button' id='editMenu' onclick='editItem(`" . Main::hashIdsEncode($row->id) . "`,`" . $row->name . "`)'>Ubah</a>";
                     $btn .= "<a href='javascript:void(0)' class='delete btn btn-danger btn-sm' onclick='deleteItem(`" . Main::hashIdsEncode($row->id) . "`,`" . $row->name . "`)'>Hapus</a>";
                     $btn .= '</div>';
                     return $btn;
@@ -135,7 +135,6 @@ class MenuController extends Controller
     {
         try {
             $menu = Menu::findOrFail(Main::hashIdsDecode($id));
-
             return response()->json([
                 'status' => 'success',
                 'message' => 'Berhasil mendapatkan data',
