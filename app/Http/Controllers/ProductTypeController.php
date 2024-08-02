@@ -3,30 +3,36 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Main;
-use App\Http\Requests\AddProductUnitRequest;
-use App\Models\ProductUnit;
+use App\Http\Requests\AddProductTypeRequest;
+use App\Models\ProductType;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
-class UnitController extends Controller
+class ProductTypeController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:Show Master Satuan Produk', ['only' => ['index']]);
-        $this->middleware('permission:Create Master Satuan Produk', ['only' => ['create']]);
-        $this->middleware('permission:Edit Master Satuan Produk', ['only' => ['edit']]);
-        $this->middleware('permission:Store Master Satuan Produk', ['only' => ['store']]);
-        $this->middleware('permission:Update Master Satuan Produk', ['only' => ['update']]);
-        $this->middleware('permission:Delete Master Satuan Produk', ['only' => ['destroy']]);
+        $this->middleware('permission:Show Master Tipe Produk', ['only' => ['index']]);
+        $this->middleware('permission:Create Master Tipe Produk', ['only' => ['create']]);
+        $this->middleware('permission:Edit Master Tipe Produk', ['only' => ['edit']]);
+        $this->middleware('permission:Store Master Tipe Produk', ['only' => ['store']]);
+        $this->middleware('permission:Update Master Tipe Produk', ['only' => ['update']]);
+        $this->middleware('permission:Delete Master Tipe Produk', ['only' => ['destroy']]);
     }
     public function index(Request $request)
     {
+        $productTypeCode = ProductType::count() + 1;
+        $productTypeCode = 'J' . str_pad($productTypeCode, 3, '0', STR_PAD_LEFT);
+
         if ($request->ajax()) {
-            $data = ProductUnit::orderBy('created_at', 'DESC')->get();
+            $data = ProductType::orderBy('created_at', 'DESC')->get();
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('code', function ($row) {
                     return $row->code;
+                })
+                ->addColumn('name', function ($row) {
+                    return $row->name;
                 })
                 ->addColumn('name', function ($row) {
                     return $row->name;
@@ -41,18 +47,18 @@ class UnitController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        return view('pages.master.unit.index');
+        return view('pages.master.type.index', compact(['productTypeCode']));
     }
 
     public function create()
     {
-        return view('pages.master.unit.create', compact(['countUnit']));
+        return view('pages.master.type.create');
     }
 
     public function edit($id)
     {
         try {
-            $data = ProductUnit::findOrFail(Main::hashIdsDecode($id));
+            $data = ProductType::findOrFail(Main::hashIdsDecode($id));
             return response()->json([
                 'status' => 'success',
                 'message' => 'Berhasil mendapatkan data',
@@ -67,12 +73,13 @@ class UnitController extends Controller
         }
     }
 
-    public function store(AddProductUnitRequest $request)
+    public function store(AddProductTypeRequest $request)
     {
         try {
-            $query = new ProductUnit();
+            $query = new ProductType();
             $query->code = $request->code;
             $query->name = $request->name;
+            $query->desc = $request->desc;
             $query->save();
             return response()->json([
                 'status' => 'success',
@@ -90,9 +97,10 @@ class UnitController extends Controller
     public function update(Request $request)
     {
         try {
-            $query = ProductUnit::find($request->idEdit);
+            $query = ProductType::find($request->idEdit);
             $query->code = $request->codeEdit;
             $query->name = $request->nameEdit;
+            $query->desc = $request->descEdit;
             $query->save();
             return response()->json([
                 'status' => 'success',
@@ -110,7 +118,7 @@ class UnitController extends Controller
     public function destroy($id)
     {
         try {
-            $query = ProductUnit::find(Main::hashIdsDecode($id));
+            $query = ProductType::find(Main::hashIdsDecode($id));
             $query->delete();
             return response()->json([
                 'status' => 'success',

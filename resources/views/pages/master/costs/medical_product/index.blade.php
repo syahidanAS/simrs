@@ -23,9 +23,9 @@
                             </button>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="{{ route('master.units') }}">Satuan Produk</a>
-                                <a class="dropdown-item" href="#">Tipe Produk</a>
-                                <a class="dropdown-item" href="#">Kategori Produk</a>
-                                <a class="dropdown-item" href="#">Golongan Produk</a>
+                                <a class="dropdown-item" href="{{ route('master.types') }}">Tipe Produk</a>
+                                <a class="dropdown-item" href="{{ route('master.categories') }}">Kategori Produk</a>
+                                <a class="dropdown-item" href="{{ route('master.groups') }}">Golongan Produk</a>
                             </div>
                         </div>
                     </div>

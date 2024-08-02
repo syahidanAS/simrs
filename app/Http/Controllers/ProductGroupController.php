@@ -3,26 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Main;
-use App\Http\Requests\AddProductUnitRequest;
-use App\Models\ProductUnit;
+use App\Http\Requests\AddProductGroup;
+use App\Models\ProductGroup;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
-class UnitController extends Controller
+class ProductGroupController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:Show Master Satuan Produk', ['only' => ['index']]);
-        $this->middleware('permission:Create Master Satuan Produk', ['only' => ['create']]);
-        $this->middleware('permission:Edit Master Satuan Produk', ['only' => ['edit']]);
-        $this->middleware('permission:Store Master Satuan Produk', ['only' => ['store']]);
-        $this->middleware('permission:Update Master Satuan Produk', ['only' => ['update']]);
-        $this->middleware('permission:Delete Master Satuan Produk', ['only' => ['destroy']]);
+        $this->middleware('permission:Show Master Golongan Produk', ['only' => ['index']]);
+        $this->middleware('permission:Create Master Golongan Produk', ['only' => ['create']]);
+        $this->middleware('permission:Edit Master Golongan Produk', ['only' => ['edit']]);
+        $this->middleware('permission:Store Master Golongan Produk', ['only' => ['store']]);
+        $this->middleware('permission:Update Master Golongan Produk', ['only' => ['update']]);
+        $this->middleware('permission:Delete Master Golongan Produk', ['only' => ['destroy']]);
     }
     public function index(Request $request)
     {
+        $productGroupCode = ProductGroup::count() + 1;
+        $productGroupCode = 'GR' . str_pad($productGroupCode, 2, '0', STR_PAD_LEFT);
+
         if ($request->ajax()) {
-            $data = ProductUnit::orderBy('created_at', 'DESC')->get();
+            $data = ProductGroup::orderBy('created_at', 'DESC')->get();
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('code', function ($row) {
@@ -41,18 +44,18 @@ class UnitController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        return view('pages.master.unit.index');
+        return view('pages.master.group.index', compact(['productGroupCode']));
     }
 
     public function create()
     {
-        return view('pages.master.unit.create', compact(['countUnit']));
+        return view('pages.master.group.create');
     }
 
     public function edit($id)
     {
         try {
-            $data = ProductUnit::findOrFail(Main::hashIdsDecode($id));
+            $data = ProductGroup::findOrFail(Main::hashIdsDecode($id));
             return response()->json([
                 'status' => 'success',
                 'message' => 'Berhasil mendapatkan data',
@@ -67,10 +70,10 @@ class UnitController extends Controller
         }
     }
 
-    public function store(AddProductUnitRequest $request)
+    public function store(AddProductGroup $request)
     {
         try {
-            $query = new ProductUnit();
+            $query = new ProductGroup();
             $query->code = $request->code;
             $query->name = $request->name;
             $query->save();
@@ -90,7 +93,7 @@ class UnitController extends Controller
     public function update(Request $request)
     {
         try {
-            $query = ProductUnit::find($request->idEdit);
+            $query = ProductGroup::find($request->idEdit);
             $query->code = $request->codeEdit;
             $query->name = $request->nameEdit;
             $query->save();
@@ -110,7 +113,7 @@ class UnitController extends Controller
     public function destroy($id)
     {
         try {
-            $query = ProductUnit::find(Main::hashIdsDecode($id));
+            $query = ProductGroup::find(Main::hashIdsDecode($id));
             $query->delete();
             return response()->json([
                 'status' => 'success',

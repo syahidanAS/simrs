@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => 'Master Satuan Produk'])
+@extends('layouts.app', ['title' => 'Master Tipe Produk'])
 @section('content')
 <div class="content-body">
     <div class="container-fluid">
@@ -14,12 +14,12 @@
 
         <div class="card table-responsive">
             <div class="card-header">
-                <h5 class="card-title col-sm-8">Master Satuan Produk</h5>
+                <h5 class="card-title col-sm-8">Master Tipe Produk</h5>
                 <div class="row col-sm-4">
                     <a type="button" class="btn btn-secondary btn-sm col-sm-6"
                         href="{{route('master.cost.product-prices')}}">
                         < Kembali</a>
-                            <button type="button" class="btn btn-primary btn-sm col-sm-6" href="#"
+                            <button id="btnAddType" type="button" class="btn btn-primary btn-sm col-sm-6" href="#"
                                 data-bs-toggle="modal" data-bs-target="#createModal">+
                                 Tambah Data</button>
                 </div>
@@ -32,6 +32,7 @@
                             <th>No</th>
                             <th>Kode</th>
                             <th>Nama</th>
+                            <th>Deskripsi</th>
                             <th>Tindakan</th>
                         </tr>
                     </thead>
@@ -40,8 +41,8 @@
             </div>
         </div>
     </div>
-    @include('pages.master.unit.create')
-    @include('pages.master.unit.edit')
+    @include('pages.master.type.create')
+    @include('pages.master.type.edit')
 </div>
 @endsection
 @section('scriptjs')
@@ -95,11 +96,12 @@
         let table = $('#datatable').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{ route('master.units') }}",
+            ajax: "{{ route('master.types') }}",
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex' },
                 { data: 'code', name: 'code' },
                 { data: 'name', name: 'name' },
+                { data: 'desc', name: 'desc' },
                 { data: 'action', name: 'action', orderable: false, searchable: false },
             ],
             responsive: true,
@@ -113,12 +115,12 @@
         $(document).on('click', '.delete-item', function (event) {
             let id = $(this).data('id');
             let name = $(this).data('name');
-            var url = '{{ route("master.units.destroy", ":id") }}';
+            var url = '{{ route("master.types.destroy", ":id") }}';
             url = url.replace(':id', id);
 
             Swal.fire({
                 title: 'Peringatan!',
-                text: `Apakah anda yakin ingin menghapus satuan ${name}?`,
+                text: `Apakah anda yakin ingin menghapus Tipe ${name}?`,
                 showDenyButton: true,
                 confirmButtonText: "Ya, lanjutkan",
                 denyButtonText: `Batalkan`,
@@ -203,7 +205,7 @@
         $('#editModal').modal('show');
         $.ajax({
             type: 'GET',
-            url: '{{ route("master.units.edit", ":id") }}'.replace(':id', id),
+            url: '{{ route("master.types.edit", ":id") }}'.replace(':id', id),
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
@@ -211,6 +213,7 @@
                 $('#idEdit').val(response.data.id);
                 $('#nameEdit').val(response.data.name);
                 $('#codeEdit').val(response.data.code);
+                $('#descEdit').val(response.data.desc);
             },
             error: function (xhr, status, error) {
                 Swal.fire({

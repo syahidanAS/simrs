@@ -8,6 +8,9 @@ use App\Http\Controllers\MedicalProductController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PolyclinicController;
+use App\Http\Controllers\ProductCategoryController;
+use App\Http\Controllers\ProductGroupController;
+use App\Http\Controllers\ProductTypeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
@@ -69,6 +72,26 @@ Route::middleware(['auth', 'check.session'])->group(function () {
         Route::get('/units/edit/{id}', [UnitController::class, 'edit'])->name('master.units.edit');
         Route::get('/units/destroy/{id}', [UnitController::class, 'destroy'])->name('master.units.destroy');
 
+        Route::get('/types', [ProductTypeController::class, 'index'])->name('master.types');
+        Route::get('/types/create', [ProductTypeController::class, 'create'])->name('master.types.create');
+        Route::post('/types/store', [ProductTypeController::class, 'store'])->name('master.types.store');
+        Route::post('/types/update', [ProductTypeController::class, 'update'])->name('master.types.update');
+        Route::get('/types/edit/{id}', [ProductTypeController::class, 'edit'])->name('master.types.edit');
+        Route::get('/types/destroy/{id}', [ProductTypeController::class, 'destroy'])->name('master.types.destroy');
+
+        Route::get('/categories', [ProductCategoryController::class, 'index'])->name('master.categories');
+        Route::get('/categories/create', [ProductCategoryController::class, 'create'])->name('master.categories.create');
+        Route::post('/categories/store', [ProductCategoryController::class, 'store'])->name('master.categories.store');
+        Route::post('/categories/update', [ProductCategoryController::class, 'update'])->name('master.categories.update');
+        Route::get('/categories/edit/{id}', [ProductCategoryController::class, 'edit'])->name('master.categories.edit');
+        Route::get('/categories/destroy/{id}', [ProductCategoryController::class, 'destroy'])->name('master.categories.destroy');
+
+        Route::get('/groups', [ProductGroupController::class, 'index'])->name('master.groups');
+        Route::get('/groups/create', [ProductGroupController::class, 'create'])->name('master.groups.create');
+        Route::post('/groups/store', [ProductGroupController::class, 'store'])->name('master.groups.store');
+        Route::post('/groups/update', [ProductGroupController::class, 'update'])->name('master.groups.update');
+        Route::get('/groups/edit/{id}', [ProductGroupController::class, 'edit'])->name('master.groups.edit');
+        Route::get('/groups/destroy/{id}', [ProductGroupController::class, 'destroy'])->name('master.groups.destroy');
     });
     Route::prefix('/setting')->group(function () {
         Route::get('/menus', [MenuController::class, 'index'])->name('setting.menus');

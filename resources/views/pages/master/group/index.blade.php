@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => 'Master Satuan Produk'])
+@extends('layouts.app', ['title' => 'Master Golongan Produk'])
 @section('content')
 <div class="content-body">
     <div class="container-fluid">
@@ -14,7 +14,7 @@
 
         <div class="card table-responsive">
             <div class="card-header">
-                <h5 class="card-title col-sm-8">Master Satuan Produk</h5>
+                <h5 class="card-title col-sm-8">Master Golongan Produk</h5>
                 <div class="row col-sm-4">
                     <a type="button" class="btn btn-secondary btn-sm col-sm-6"
                         href="{{route('master.cost.product-prices')}}">
@@ -40,8 +40,8 @@
             </div>
         </div>
     </div>
-    @include('pages.master.unit.create')
-    @include('pages.master.unit.edit')
+    @include('pages.master.group.create')
+    @include('pages.master.group.edit')
 </div>
 @endsection
 @section('scriptjs')
@@ -95,7 +95,7 @@
         let table = $('#datatable').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{ route('master.units') }}",
+            ajax: "{{ route('master.groups') }}",
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex' },
                 { data: 'code', name: 'code' },
@@ -113,12 +113,12 @@
         $(document).on('click', '.delete-item', function (event) {
             let id = $(this).data('id');
             let name = $(this).data('name');
-            var url = '{{ route("master.units.destroy", ":id") }}';
+            var url = '{{ route("master.groups.destroy", ":id") }}';
             url = url.replace(':id', id);
 
             Swal.fire({
                 title: 'Peringatan!',
-                text: `Apakah anda yakin ingin menghapus satuan ${name}?`,
+                text: `Apakah anda yakin ingin menghapus golongan ${name}?`,
                 showDenyButton: true,
                 confirmButtonText: "Ya, lanjutkan",
                 denyButtonText: `Batalkan`,
@@ -203,7 +203,7 @@
         $('#editModal').modal('show');
         $.ajax({
             type: 'GET',
-            url: '{{ route("master.units.edit", ":id") }}'.replace(':id', id),
+            url: '{{ route("master.groups.edit", ":id") }}'.replace(':id', id),
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
