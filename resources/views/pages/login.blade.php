@@ -71,6 +71,8 @@
         $(document).ready(function () {
             $('#loginForm').on('submit', function (e) {
                 e.preventDefault();
+                $('#email').remove('is-invalid');
+                $('#password').remove('is-invalid');
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -98,6 +100,8 @@
                             });
                     },
                     error: function (xhr, status, error) {
+                        $('#email').addClass('is-invalid');
+                        $('#password').addClass('is-invalid');
                         Swal.fire({
                             icon: "error",
                             text: xhr.responseJSON.message,

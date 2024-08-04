@@ -64,6 +64,10 @@ Route::middleware(['auth', 'check.session'])->group(function () {
         Route::post('/cost/product-prices', [MedicalProductController::class, 'store'])->name('master.cost.product-prices.store');
         Route::get('/cost/product-prices/detail/{id}', [MedicalProductController::class, 'detail'])->name('master.cost.product-prices.detail');
         Route::get('/cost/products/create', [MedicalProductController::class, 'create'])->name('master.cost.products.create');
+        Route::get('/cost/products/edit/{id}', [MedicalProductController::class, 'edit'])->name('master.cost.products.edit');
+        Route::post('/cost/product-prices/update', [MedicalProductController::class, 'update'])->name('master.cost.product-prices.update');
+        Route::get('/cost/products/destroy/{id}', [MedicalProductController::class, 'destroy'])->name('master.cost.products.destroy');
+
 
         Route::get('/units', [UnitController::class, 'index'])->name('master.units');
         Route::get('/units/create', [UnitController::class, 'create'])->name('master.units.create');

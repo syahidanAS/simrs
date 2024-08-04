@@ -47,7 +47,7 @@ class MedicalProductController extends Controller
                 ->addColumn('action', function ($row) {
                     $btn = '<div class="d-flex gap-2 text-center">';
                     $btn .= "<a href='javascript:void(0)' class='btn btn-primary btn-sm' type='button' id='btnDetailProduct' data-id='" . Main::hashIdsEncode($row->id) . "'>Detail</a>";
-                    $btn .= "<a href='" . route('setting.access-utilities.permissions.edit', ['id' => Main::hashIdsEncode($row->id)]) . "' class='btn btn-warning btn-sm' type='button' id='editMenu'>Ubah</a>";;
+                    $btn .= "<a href='" . route('master.cost.products.edit', ['id' => Main::hashIdsEncode($row->id)]) . "' class='btn btn-warning btn-sm' type='button' id='editMenu'>Ubah</a>";;
                     $btn .= "<a href='javascript:void(0)' class='btn btn-danger btn-sm delete-item' data-id='" . Main::hashIdsEncode($row->id) . "' data-name='" . $row->name . "'>Hapus</a>";
                     $btn .= '</div>';
                     return $btn;
@@ -127,6 +127,9 @@ class MedicalProductController extends Controller
             $query->fill = $request->fill;
             $query->small_unit_id = $request->small_unit_id;
             $query->capacity = $request->capacity;
+            $query->type_id = $request->type_id;
+            $query->category_id = $request->category_id;
+            $query->group_id = $request->group_id;
             $query->minimum_stock = $request->minimum_stock;
             $query->current_stock = $request->current_stock;
             $query->expired_date = $request->expired_date;
@@ -139,6 +142,7 @@ class MedicalProductController extends Controller
             $query->inpatient_price_bpjs = $request->inpatient_price_bpjs;
             $query->inpatient_price_vip = $request->inpatient_price_vip;
             $query->inpatient_price_vvip = $request->inpatient_price_vvip;
+            $query->content = $request->content;
             $query->save();
 
             return response()->json([
@@ -149,6 +153,81 @@ class MedicalProductController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'Gagal mendapatkan data karena terjadi kesalahan!',
+                'error' => $err->getMessage()
+            ], 500);
+        }
+    }
+
+    public function edit($id)
+    {
+        try {
+            $decodedId = Main::hashIdsDecode($id);
+            $data = Product::with(['category', 'type', 'group', 'industry', 'smallUnit', 'largeUnit'])->findOrFail($decodedId);
+            return view('pages.master.costs.medical_product.edit', compact(['data']));
+        } catch (\Throwable $err) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Gagal mendapatkan data karena terjadi kesalahan!',
+                'error' => $err->getMessage()
+            ], 500);
+        }
+    }
+    public function update(Request $request)
+    {
+        try {
+            $query = Product::findOrFail($request->id);
+            $query->code = $request->code;
+            $query->kfa_code = $request->kfa_code;
+            $query->name = $request->name;
+            $query->industry_id = $request->industry_id;
+            $query->large_unit_id = $request->large_unit_id;
+            $query->fill = $request->fill;
+            $query->small_unit_id = $request->small_unit_id;
+            $query->capacity = $request->capacity;
+            $query->type_id = $request->type_id;
+            $query->category_id = $request->category_id;
+            $query->group_id = $request->group_id;
+            $query->minimum_stock = $request->minimum_stock;
+            $query->current_stock = $request->current_stock;
+            $query->expired_date = $request->expired_date;
+            $query->basic_price = $request->basic_price;
+            $query->purchase_price = $request->purchase_price;
+            $query->outpatient_price = $request->outpatient_price;
+            $query->inpatient_price_class_1 = $request->inpatient_price_class_1;
+            $query->inpatient_price_class_2 = $request->inpatient_price_class_2;
+            $query->inpatient_price_class_3 = $request->inpatient_price_class_3;
+            $query->inpatient_price_bpjs = $request->inpatient_price_bpjs;
+            $query->inpatient_price_vip = $request->inpatient_price_vip;
+            $query->inpatient_price_vvip = $request->inpatient_price_vvip;
+            $query->content = $request->content;
+            $query->save();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Berhasil mengubah data',
+            ], 200);
+        } catch (\Throwable $err) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Gagal mengubah data karena terjadi kesalahan!',
+                'error' => $err->getMessage()
+            ], 500);
+        }
+    }
+
+    public function destroy($id)
+    {
+        try {
+            $query = Product::find(Main::hashIdsDecode($id));
+            $query->delete();
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Berhasil menghapus data',
+            ], 200);
+        } catch (\Throwable $err) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Gagal menambahkan data karena terjadi kesalahan!',
                 'error' => $err->getMessage()
             ], 500);
         }

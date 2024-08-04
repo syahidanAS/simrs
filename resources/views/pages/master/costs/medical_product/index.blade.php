@@ -60,24 +60,20 @@
 @section('scriptjs')
 <script>
     $(document).ready(function () {
-        $(function () {
-            $("#datatable").DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: "{{ route('master.cost.product-prices') }}",
-                columns: [
-                    { data: 'DT_RowIndex', name: 'DT_RowIndex' },
-                    { data: 'code', name: 'code' },
-                    { data: 'kfa_code', name: 'kfa_code' },
-                    { data: 'product_name', name: 'product_name' },
-                    { data: 'content', name: 'content' },
-                    { data: 'basic_price', name: 'basic_price' },
-                    { data: 'action', name: 'action', orderable: true, searchable: true },
-                ],
-            });
-
+        let table = $("#datatable").DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: "{{ route('master.cost.product-prices') }}",
+            columns: [
+                { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+                { data: 'code', name: 'code' },
+                { data: 'kfa_code', name: 'kfa_code' },
+                { data: 'product_name', name: 'product_name' },
+                { data: 'content', name: 'content' },
+                { data: 'basic_price', name: 'basic_price' },
+                { data: 'action', name: 'action', orderable: true, searchable: true },
+            ],
         });
-
 
         $(document).on('click', '#btnDetailProduct', function () {
             let id = $(this).data('id');
@@ -121,6 +117,50 @@
                         showCloseButton: true,
                         confirmButtonText: 'Coba Lagi',
                     });
+                }
+            });
+        });
+
+        $(document).on('click', '.delete-item', function (event) {
+            let id = $(this).data('id');
+            let name = $(this).data('name');
+            var url = '{{ route("master.cost.products.destroy", ":id") }}';
+            url = url.replace(':id', id);
+
+            Swal.fire({
+                title: 'Peringatan!',
+                text: `Apakah anda yakin ingin menghapus golongan ${name}?`,
+                showDenyButton: true,
+                confirmButtonText: "Ya, lanjutkan",
+                denyButtonText: `Batalkan`,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: 'GET',
+                        url: url,
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        contentType: 'application/json',
+                        processData: false, contentType: false,
+                        success: function (response) {
+                            Swal.fire({
+                                icon: "success",
+                                text: response.message,
+                                showCloseButton: true,
+                                confirmButtonText: 'Oke',
+                            })
+                            table.ajax.reload();
+                        },
+                        error: function (xhr, status, error) {
+                            Swal.fire({
+                                icon: "error",
+                                text: xhr.responseJSON.message,
+                                showCloseButton: true,
+                                confirmButtonText: 'Coba Lagi',
+                            });
+                        }
+                    })
                 }
             });
         });

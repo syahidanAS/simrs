@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => 'Obat dan Alat Kesehatan'])
+@extends('layouts.app', ['title' => 'Perbaharui Obat dan Alat Kesehatan'])
 @section('content')
 <div class="content-body">
     <div class="container-fluid">
@@ -11,32 +11,32 @@
                 </li>
             </ol>
         </div>
-        <form class="card" id="formTambahDokter" action="{{ route('master.cost.product-prices.store') }}" method="POST">
+        <form class="card" id="formUpdateProduct" action="{{ route('master.cost.product-prices.update') }}"
+            method="POST">
             @csrf
             <div class="container">
                 <div class="d-flex justify-content-between text-center">
-                    <h5>Tambah Obat dan Alat Kesehatan</h5>
+                    <h5>Perbaharui Obat dan Alat Kesehatan</h5>
                     <a class="btn btn-secondary btn-sm" href="{{ route('master.cost.product-prices') }}"><i
                             class="bi bi-chevron-left"></i>Kembali</a>
                 </div>
                 <div class="card-body pt-4 row">
                     <div class="col-sm-6">
+                        <input type="text" id="id" name="id" value="{{ $data->id }}" hidden>
                         <div class="mb-3 form-group">
-                            <label for="kfa_code">Kode Produk<small style="font-size: 11px;" class="text-primary"> (Kode
-                                    produk terisi
-                                    secara otomatis)</small></label>
-                            <input class="form-control" type="text" name="code" id="code" value="{{ $countProduct }}"
+                            <label for="kfa_code">Kode Produk</label>
+                            <input class="form-control" type="text" name="code" id="code" value="{{ $data->code }}"
                                 readonly>
                         </div>
                         <div class="mb-3 form-group">
                             <label for="kfa_code">Kode KFA<span class="text-danger">*</span></label>
                             <input class="form-control" type="number" name="kfa_code" id="kfa_code"
-                                placeholder="ex. 92000384">
+                                placeholder="ex. 92000384" value="{{$data->kfa_code}}">
                         </div>
                         <div class="mb-3 form-group">
                             <label for="name">Nama Produk<span class="text-danger">*</span></label>
                             <input class="form-control" type="text" name="name" id="name"
-                                placeholder="ex. Paracetamol 60 mg / 0,6 mL Drops">
+                                placeholder="ex. Paracetamol 60 mg / 0,6 mL Drops" value="{{$data->name}}">
                         </div>
                         <div class=" form-group">
                             <label for="industry_id" class="form-label" required>Nama Industri
@@ -57,7 +57,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <input class="form-control col-sm-2" type="number" name="fill" id="fill"
-                                    style="height: 35px;">
+                                    style="height: 35px;" value="{{ $data->fill }}">
                             </div>
                         </div>
 
@@ -72,7 +72,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <input class="form-control col-sm-2" type="number" name="capacity" id="capacity"
-                                    style="height: 35px;">
+                                    style="height: 35px;" value="{{ $data->capacity }}">
                             </div>
                         </div>
 
@@ -105,72 +105,78 @@
 
                         <div class="my-4 form-group">
                             <label for="expired_date">Tanggal Kedaluwarsa<span class="text-danger">*</span></label>
-                            <input class="form-control" type="date" name="expired_date" id="expired_date">
+                            <input class="form-control" type="date" name="expired_date" id="expired_date"
+                                value="{{$data->expired_date}}">
                         </div>
 
                     </div>
                     <div class="col-sm-6">
                         <div class="mb-3 form-group">
                             <label for="minimum_stock">Stok Minimal<span class="text-danger">*</span></label>
-                            <input class="form-control" type="number" name="minimum_stock" id="minimum_stock">
+                            <input class="form-control" type="number" name="minimum_stock" id="minimum_stock"
+                                value="{{$data->minimum_stock}}">
                         </div>
                         <div class="mb-3 form-group">
                             <label for="current_stock">Stok Saat Ini<span class="text-danger">*</span></label>
-                            <input class="form-control" type="number" name="current_stock" id="current_stock">
+                            <input class="form-control" type="number" name="current_stock" id="current_stock"
+                                value="{{$data->current_stock}}">
                         </div>
 
                         <div class="mb-3 form-group">
                             <label for="basic_price">Harga Dasar<span class="text-danger">*</span></label>
-                            <input class="form-control" type="number" name="basic_price" id="basic_price" />
+                            <input class="form-control" type="number" name="basic_price" id="basic_price"
+                                value="{{$data->basic_price}}" />
                         </div>
 
                         <div class="mb-3 form-group">
                             <label for="purchase_price">Harga Beli<span class="text-danger">*</span></label>
                             <input class="form-control" type="number" name="purchase_price" id="purchase_price" />
-                        </div>
+                        </div>  
 
                         <div class="mb-3 form-group">
                             <label for="outpatient_price">Harga Pasien Ralan</label>
-                            <input class="form-control" type="number" name="outpatient_price" id="outpatient_price" />
+                            <input class="form-control" type="number" name="outpatient_price" id="outpatient_price"
+                                value="{{$data->outpatient_price}}" />
                         </div>
 
                         <div class="mb-3 form-group">
                             <label for="inpatient_price_class_1">Harga Pasien Ranap (Kelas 1)</label>
                             <input class="form-control" type="number" name="inpatient_price_class_1"
-                                id="inpatient_price_class_1" />
+                                id="inpatient_price_class_1" value="{{ $data->inpatient_price_class_1 }}" />
                         </div>
                         <div class="mb-3 form-group">
                             <label for="inpatient_price_class_2">Harga Pasien Ranap (Kelas 2)</label>
                             <input class="form-control" type="number" name="inpatient_price_class_2"
-                                id="inpatient_price_class_2" />
+                                id="inpatient_price_class_2" value="{{ $data->inpatient_price_class_2 }}" />
                         </div>
                         <div class="mb-3 form-group">
                             <label for="inpatient_price_class_3">Harga Pasien Ranap (Kelas 3)</label>
                             <input class="form-control" type="number" name="inpatient_price_class_3"
-                                id="inpatient_price_class_3" />
+                                id="inpatient_price_class_3" value="{{ $data->inpatient_price_class_3 }}" />
                         </div>
 
                         <div class="mb-3 form-group">
                             <label for="inpatient_price_bpjs">Harga Pasien Ranap BPJS</label>
                             <input class="form-control" type="number" name="inpatient_price_bpjs"
-                                id="inpatient_price_bpjs" />
+                                id="inpatient_price_bpjs" value="{{$data->inpatient_price_bpjs}}" />
                         </div>
 
                         <div class="mb-3 form-group">
                             <label for="inpatient_price_vip">Harga Pasien Ranap VIP</label>
                             <input class="form-control" type="number" name="inpatient_price_vip"
-                                id="inpatient_price_vip" />
+                                id="inpatient_price_vip" value="{{ $data->inpatient_price_vip }}" />
                         </div>
 
                         <div class="mb-3 form-group">
                             <label for="inpatient_price_vvip">Harga Pasien Ranap VVIP</label>
                             <input class="form-control" type="number" name="inpatient_price_vvip"
-                                id="inpatient_price_vvip" />
+                                id="inpatient_price_vvip" value="{{ $data->inpatient_price_vvip }}" />
                         </div>
 
                         <div class="mb-3 form-group">
                             <label for="content">Kandungan</label>
-                            <textarea class="form-control" type="text" name="content" id="content"></textarea>
+                            <textarea class="form-control" type="text" name="content"
+                                id="content">{{ $data->content }}</textarea>
                         </div>
 
 
@@ -194,7 +200,7 @@
     let groupUrl = "{{ route('master.cost.product-prices.groups') }}";
 
     $(document).ready(function () {
-        $('#formTambahDokter').on('submit', function (event) {
+        $('#formUpdateProduct').on('submit', function (event) {
             event.preventDefault();
             var form = this;
             $('#btnSubmit').addClass('disabled');
@@ -225,7 +231,6 @@
                         showCloseButton: true,
                         confirmButtonText: 'Lanjutkan',
                     })
-                    document.getElementById('formTambahDokter').reset();
                     $('#btnSubmit').removeClass('disabled');
 
                 },
@@ -394,6 +399,29 @@
             }
         });
 
+        let selectedSpecialist = '{{ $data->industry->id }}';
+        let newIndustry = new Option('{{ $data->industry->name }}', selectedSpecialist, true, true);
+        $("#industry_id").append(newIndustry).trigger('change');
+
+        let selectedLargeUnit = '{{ $data->largeUnit->id }}';
+        let newLargeUnit = new Option('{{ $data->largeUnit->name }}', selectedLargeUnit, true, true);
+        $("#large_unit_id").append(newLargeUnit).trigger('change');
+
+        let selectedSmallUnit = '{{ $data->smallUnit->id }}';
+        let newSmallUnit = new Option('{{ $data->smallUnit->name }}', selectedSmallUnit, true, true);
+        $("#small_unit_id").append(newSmallUnit).trigger('change');
+
+        let selectedType = '{{ $data->type->id }}';
+        let newType = new Option('{{ $data->type->name }}', selectedType, true, true);
+        $("#type_id").append(newType).trigger('change');
+
+        let selectedCategory = '{{ $data->category->id }}';
+        let newCategory = new Option('{{ $data->category->name }}', selectedCategory, true, true);
+        $("#category_id").append(newCategory).trigger('change');
+
+        let selectedGroup = '{{ $data->group->id }}';
+        let newGroup = new Option('{{ $data->group->name }}', selectedGroup, true, true);
+        $("#group_id").append(newGroup).trigger('change');
     });
 </script>
 @endsection

@@ -56,11 +56,11 @@ class Product extends Model
 
     public function smallUnit()
     {
-        return $this->belongsTo(ProductUnit::class, 'large_unit_id', 'id');
+        return $this->belongsTo(ProductUnit::class, 'small_unit_id', 'id');
     }
 
     public function largeUnit()
     {
-        return $this->belongsTo(ProductUnit::class, 'small_unit_id', 'id');
+        return $this->belongsTo(ProductUnit::class, 'large_unit_id', 'id');
     }
 }
