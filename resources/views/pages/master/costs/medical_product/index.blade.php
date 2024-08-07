@@ -22,6 +22,7 @@
                                 Master Data Pendukung
                             </button>
                             <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{{ route('master.industries') }}">Industri/Manufaktur</a>
                                 <a class="dropdown-item" href="{{ route('master.units') }}">Satuan Produk</a>
                                 <a class="dropdown-item" href="{{ route('master.types') }}">Tipe Produk</a>
                                 <a class="dropdown-item" href="{{ route('master.categories') }}">Kategori Produk</a>

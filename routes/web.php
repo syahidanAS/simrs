@@ -3,6 +3,7 @@
 use App\Http\Controllers\DiagnoseIcdxController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\IndustryController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MedicalProductController;
 use App\Http\Controllers\MenuController;
@@ -96,6 +97,20 @@ Route::middleware(['auth', 'check.session'])->group(function () {
         Route::post('/groups/update', [ProductGroupController::class, 'update'])->name('master.groups.update');
         Route::get('/groups/edit/{id}', [ProductGroupController::class, 'edit'])->name('master.groups.edit');
         Route::get('/groups/destroy/{id}', [ProductGroupController::class, 'destroy'])->name('master.groups.destroy');
+
+        Route::get('/industries', [IndustryController::class, 'index'])->name('master.industries');
+        Route::get('/industries/create', [IndustryController::class, 'create'])->name('master.industries.create');
+        Route::post('/industries/store', [IndustryController::class, 'store'])->name('master.industries.store');
+        Route::post('/industries/update', [IndustryController::class, 'update'])->name('master.industries.update');
+        Route::get('/industries/edit/{id}', [IndustryController::class, 'edit'])->name('master.industries.edit');
+        Route::get('/industries/destroy/{id}', [IndustryController::class, 'destroy'])->name('master.industries.destroy');
+
+        Route::get('/diagnose/icd_x', [DiagnoseIcdxController::class, 'index'])->name('master.diagnose.icd_x');
+        Route::get('/diagnose/icd_x/create', [DiagnoseIcdxController::class, 'create'])->name('master.diagnose.icd_x.create');
+        Route::post('/diagnose/icd_x/store', [DiagnoseIcdxController::class, 'store'])->name('master.diagnose.icd_x.store');
+        Route::post('/diagnose/icd_x/update', [DiagnoseIcdxController::class, 'update'])->name('master.diagnose.icd_x.update');
+        Route::get('/diagnose/icd_x/edit/{id}', [DiagnoseIcdxController::class, 'edit'])->name('master.diagnose.icd_x.edit');
+        Route::get('/diagnose/icd_x/destroy/{id}', [DiagnoseIcdxController::class, 'destroy'])->name('master.diagnose.icd_x.destroy');
     });
     Route::prefix('/setting')->group(function () {
         Route::get('/menus', [MenuController::class, 'index'])->name('setting.menus');

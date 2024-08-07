@@ -12,6 +12,12 @@ class PolyclinicController extends Controller
 {
     public function __construct()
     {
+        $this->middleware('permission:Show Master Poliklinik', ['only' => ['index']]);
+        $this->middleware('permission:Create Master Poliklinik', ['only' => ['create']]);
+        $this->middleware('permission:Edit Master Poliklinik', ['only' => ['edit']]);
+        $this->middleware('permission:Store Master Poliklinik', ['only' => ['store']]);
+        $this->middleware('permission:Update Master Poliklinik', ['only' => ['update']]);
+        $this->middleware('permission:Delete Master Poliklinik', ['only' => ['destroy']]);
     }
     public function index(Request $request)
     {
