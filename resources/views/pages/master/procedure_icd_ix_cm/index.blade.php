@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => 'ICD-X'])
+@extends('layouts.app', ['title' => 'ICD-IX CM'])
 
 @section('content')
 <div class="content-body">
@@ -14,9 +14,9 @@
         </div>
         <div class="card">
             <div class="card-header">
-                <h5 class="card-title col-sm-10">Master Diagnosa ICD-X</h5>
+                <h5 class="card-title col-sm-10">Master Prosedur ICD-IX CM</h5>
                 <a type="button" class="btn btn-primary btn-sm col-sm-2"
-                    href="{{ route('master.diagnose.icd_x.create') }}">+
+                    href="{{ route('master.procedure.icd_ix_cm.create') }}">+
                     Tambah Data</a>
             </div>
             <div class="card-body table-responsive">
@@ -25,9 +25,8 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Kode Diagnosa</th>
-                            <th>Nama (Bahasa Inggris)</th>
-                            <th>Nama (Bahasa)</th>
+                            <th>Kode</th>
+                            <th>Nama Prosedur</th>
                             <th>Tindakan</th>
                         </tr>
                     </thead>
@@ -47,15 +46,14 @@
         let table = $('#datatable').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{ route('master.diagnose.icd_x') }}",
+            ajax: "{{ route('master.procedure.icd_ix_cm') }}",
             "dom": '<"top"i>rt<"bottom"lp><"clear">',
             "dom": '<"top"f>rt<"bottom"lp><"clear">',
             "paging": true,
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex' },
                 { data: 'code', name: 'code' },
-                { data: 'name_en', name: 'name_en' },
-                { data: 'name_id', name: 'name_id' },
+                { data: 'name', name: 'name' },
                 { data: 'action', name: 'action', orderable: false, searchable: false },
             ],
             responsive: true,
@@ -70,12 +68,12 @@
         $(document).on('click', '.delete-item', function (event) {
             let id = $(this).data('id');
             let name = $(this).data('name');
-            var url = '{{ route("master.diagnose.icd_x.destroy", ":id") }}';
+            var url = '{{ route("master.procedure.icd_ix_cm.destroy", ":id") }}';
             url = url.replace(':id', id);
 
             Swal.fire({
                 title: 'Peringatan!',
-                text: `Apakah anda yakin ingin menghapus diagnosa ${name}?`,
+                text: `Apakah anda yakin ingin menghapus prosedur ${name}?`,
                 showDenyButton: true,
                 confirmButtonText: "Ya, lanjutkan",
                 denyButtonText: `Batalkan`,

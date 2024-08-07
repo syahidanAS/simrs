@@ -9,6 +9,7 @@ use App\Http\Controllers\MedicalProductController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PolyclinicController;
+use App\Http\Controllers\ProcedureIcdIxCmController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductGroupController;
 use App\Http\Controllers\ProductTypeController;
@@ -104,6 +105,13 @@ Route::middleware(['auth', 'check.session'])->group(function () {
         Route::post('/industries/update', [IndustryController::class, 'update'])->name('master.industries.update');
         Route::get('/industries/edit/{id}', [IndustryController::class, 'edit'])->name('master.industries.edit');
         Route::get('/industries/destroy/{id}', [IndustryController::class, 'destroy'])->name('master.industries.destroy');
+
+        Route::get('/procedure/icd_ix_cm', [ProcedureIcdIxCmController::class, 'index'])->name('master.procedure.icd_ix_cm');
+        Route::get('/procedure/icd_ix_cm/create', [ProcedureIcdIxCmController::class, 'create'])->name('master.procedure.icd_ix_cm.create');
+        Route::post('/procedure/icd_ix_cm/store', [ProcedureIcdIxCmController::class, 'store'])->name('master.procedure.icd_ix_cm.store');
+        Route::post('/procedure/icd_ix_cm/update', [ProcedureIcdIxCmController::class, 'update'])->name('master.procedure.icd_ix_cm.update');
+        Route::get('/procedure/icd_ix_cm/edit/{id}', [ProcedureIcdIxCmController::class, 'edit'])->name('master.procedure.icd_ix_cm.edit');
+        Route::get('/procedure/icd_ix_cm/destroy/{id}', [ProcedureIcdIxCmController::class, 'destroy'])->name('master.procedure.icd_ix_cm.destroy');
 
         Route::get('/diagnose/icd_x', [DiagnoseIcdxController::class, 'index'])->name('master.diagnose.icd_x');
         Route::get('/diagnose/icd_x/create', [DiagnoseIcdxController::class, 'create'])->name('master.diagnose.icd_x.create');

@@ -47,9 +47,9 @@
             processing: true,
             serverSide: true,
             ajax: "{{ route('master.doctors') }}",
-            dom: "<'row'<'col-sm-9 mb-4 gap-2'l><'col-sm-3'f>>" +
-                "<'row'<'col-sm-12'tr>>" +
-                "<'row'<'col-sm-9 mt-4'i><'col-sm-3 mt-4'p>>",
+            "dom": '<"top"i>rt<"bottom"lp><"clear">',
+            "dom": '<"top"f>rt<"bottom"lp><"clear">',
+            "paging": true,
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex' },
                 { data: 'name', name: 'name' },

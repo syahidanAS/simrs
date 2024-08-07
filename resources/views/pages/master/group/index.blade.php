@@ -96,6 +96,9 @@
             processing: true,
             serverSide: true,
             ajax: "{{ route('master.groups') }}",
+            "dom": '<"top"i>rt<"bottom"lp><"clear">',
+            "dom": '<"top"f>rt<"bottom"lp><"clear">',
+            "paging": true,
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex' },
                 { data: 'code', name: 'code' },

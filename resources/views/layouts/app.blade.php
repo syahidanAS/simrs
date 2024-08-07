@@ -32,6 +32,13 @@
             font-size: 14px !important;
             font-weight: normal !important;
         }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button {
+            width: 60px;
+            /* Atur lebar tombol sesuai kebutuhan */
+            text-align: center;
+            /* Mengatur teks di tengah tombol */
+        }
     </style>
 </head>
 

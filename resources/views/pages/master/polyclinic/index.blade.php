@@ -12,33 +12,33 @@
                 </li>
             </ol>
         </div>
-            <div class="card table-responsive">
-                <div class="card-header">
-                    <h5 class="card-title col-sm-10">Master Poliklinik</h5>
-                    <a type="button" class="btn btn-primary btn-sm col-sm-2"
-                        href="{{ route('master.polyclinics.create') }}">+
-                        Tambah Data</a>
-                </div>
-                <div class="card-body">
-                    <div class="d-flex justify-content-between mb-3"></div>
-                    <table class="table table-striped table-bordered" id="datatable">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Kode Poli</th>
-                                <th>Nama Poli</th>
-                                <th>Jam Buka</th>
-                                <th>Jam Tutup</th>
-                                <th>Tindakan</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
-                <div class="card-footer">
-                    <!-- Optional footer content -->
-                </div>
+        <div class="card table-responsive">
+            <div class="card-header">
+                <h5 class="card-title col-sm-10">Master Poliklinik</h5>
+                <a type="button" class="btn btn-primary btn-sm col-sm-2"
+                    href="{{ route('master.polyclinics.create') }}">+
+                    Tambah Data</a>
             </div>
+            <div class="card-body">
+                <div class="d-flex justify-content-between mb-3"></div>
+                <table class="table table-striped table-bordered" id="datatable">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Kode Poli</th>
+                            <th>Nama Poli</th>
+                            <th>Jam Buka</th>
+                            <th>Jam Tutup</th>
+                            <th>Tindakan</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div class="card-footer">
+                <!-- Optional footer content -->
+            </div>
+        </div>
     </div>
 </div>
 @endsection
@@ -49,9 +49,9 @@
             processing: true,
             serverSide: true,
             ajax: "{{ route('master.polyclinics') }}",
-            dom: "<'row'<'col-sm-9 mb-4 gap-2'l><'col-sm-3'f>>" +
-                "<'row'<'col-sm-12'tr>>" +
-                "<'row'<'col-sm-9 mt-4'i><'col-sm-3 mt-4'p>>",
+            "dom": '<"top"i>rt<"bottom"lp><"clear">',
+            "dom": '<"top"f>rt<"bottom"lp><"clear">',
+            "paging": true,
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex' },
                 { data: 'kd_poli', name: 'kd_poli' },

@@ -13,11 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('diagnose_icd_ix', function (Blueprint $table) {
+        Schema::create('icd_ix_cm', function (Blueprint $table) {
             $table->id();
             $table->string('code');
-            $table->string('name_en');
-            $table->string('name_id');
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('diagnose_icd_ix');
+        Schema::dropIfExists('icd_ix_cm');
     }
 };

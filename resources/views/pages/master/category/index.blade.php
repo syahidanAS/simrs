@@ -95,6 +95,7 @@
         let table = $('#datatable').DataTable({
             processing: true,
             serverSide: true,
+            "dom": '<"top"f>rt<"bottom"lp><"clear">',
             ajax: "{{ route('master.categories') }}",
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex' },
